@@ -1,14 +1,16 @@
-#include "game.h"
-
 #include <SFML/Graphics.hpp>
+#include "App.h"
+
 
 int main()
 {
 	// creates a new window
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Mail Game");
 
+	App app = App();
+
 	// initializes the game
-	gameInit();
+	app.init();
 
 	// runs the main loop while the window is open
 	while (window.isOpen())
@@ -23,7 +25,7 @@ int main()
 		}
 
 		// updates everything
-		gameUpdate();
+		app.update();
 
 		// clears the window
 		window.clear();
@@ -37,7 +39,7 @@ int main()
 	}
 
 	// destroys all elements
-	gameDestroy();
+	app.destroy();
 
 	return 0;
 }
