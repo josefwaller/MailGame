@@ -4,11 +4,13 @@
 
 #include <vector>
 #include <iostream>
+#include <sstream>
 
 enum class Map::terrain 
 {
 	Empty,
-	Road
+	Road,
+	House
 };
 
 Map::Map()
@@ -22,12 +24,12 @@ void Map::init(const int W, const int H, double density)
 	mapData.assign(30, std::vector<terrain>(30, terrain::Empty));
 
 	// NOTE TO SELF: These control what the map looks like
-	const int MIN_LENGTH = 5;
-	const int MAX_LENGTH = 20;
-	const int NUM_OF_BRANCHES = 6;
-	const int FRACTAL_LIMIT = 15;
-	const int MAX_OFFSET = 8;
-	const int MIN_OFFSET = 0;
+	const unsigned int MIN_LENGTH = 5;
+	const unsigned int MAX_LENGTH = 20;
+	const unsigned int NUM_OF_BRANCHES = 6;
+	const unsigned int FRACTAL_LIMIT = 15;
+	const unsigned  int MAX_OFFSET = 8;
+	const unsigned int MIN_OFFSET = 0;
 
 	// uses this temporary road struct when generating roads
 	struct road {
@@ -36,6 +38,7 @@ void Map::init(const int W, const int H, double density)
 		int l;
 		bool isH;
 	};
+
 	// the list of accepted roads
 	std::vector<road> roads = {};
 
@@ -45,9 +48,15 @@ void Map::init(const int W, const int H, double density)
 	// the list of roads to check next time
 	std::vector<road> tempRoads = {};
 
-	roadList.push_back({ 1, 1, 10, true });
+	// starts off with a road
+	roadList.push_back({
+		(int)(rand() % (mapData.size() - MAX_LENGTH)), 
+		(int)(rand() % (mapData.size() - MAX_LENGTH)),
+		(int)(rand() % (MAX_LENGTH / 2) + MAX_LENGTH / 2),
+		true 
+	});
 
-	// does 5 degrees of roads
+	// does 15 degrees of roads
 	for (int i = 0; i < FRACTAL_LIMIT; i++) {
 
 		for (road r : roadList) {
@@ -133,6 +142,46 @@ void Map::init(const int W, const int H, double density)
 
 	}
 
+	// adds houses
+	for (int x = 0; x < mapData.size(); x++) {
+		for (int y = 0; y < mapData[x].size(); y++) {
+
+			if (mapData[x][y] != terrain::Road) {
+
+				int offsets[] = { -1, 0, 1 };
+
+				for (int offX : offsets) {
+
+					if (mapData.size() <= x + offX || x + offX < 0) {
+						continue;
+					}
+
+					for (int offY : offsets) {
+
+						if (mapData[x].size() <= y + offY || y + offY < 0) {
+							continue;
+						}
+
+						if (mapData[x + offX][y + offY] == terrain::Road) {
+
+							std::wostringstream os;
+							os << x;
+							OutputDebugString(os.str().c_str());
+							mapData[x][y] = terrain::House;
+
+							// checks the next square
+							goto outerLoops;
+						}
+
+					}
+				}
+
+			}
+
+		outerLoops: ;
+		}
+	}
+
 }
 
 void Map::debugRender(sf::RenderWindow * window, int offX, int offY, int scale)
@@ -153,6 +202,11 @@ void Map::debugRender(sf::RenderWindow * window, int offX, int offY, int scale)
 
 				case terrain::Road:
 					rect.setFillColor(sf::Color(61, 61, 61));
+					break;
+
+				case terrain::House:
+					OutputDebugString(L"Hello! \n");
+					rect.setFillColor(sf::Color::Red);
 					break;
 			}
 			window->draw(rect);
