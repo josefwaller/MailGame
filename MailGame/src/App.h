@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Map.h"
+
 #include <SFML/Graphics.hpp>
 
 class App
@@ -12,5 +14,6 @@ public:
 	void destroy();
 
 private:
+	Map m;
 	int y;
 };

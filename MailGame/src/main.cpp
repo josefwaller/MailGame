@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include "App.h"
+#include "windows.h"
 
 
 int main()
@@ -31,7 +32,7 @@ int main()
 		window.clear();
 
 		// draws new stuff
-		//gameRender(&window);
+		app.render(&window);
 
 		// updates the window
 		window.display();
