@@ -19,7 +19,7 @@ Map::Map()
 
 void Map::init(const int W, const int H, double density)
 {
-	srand(time(0));
+	srand((unsigned int)time(0));
 
 	mapData.assign(30, std::vector<terrain>(30, terrain::Empty));
 
@@ -65,10 +65,10 @@ void Map::init(const int W, const int H, double density)
 			bool valid = true;
 
 			// checks if it is in bounds
-			if (r.x < 0 || r.x + r.l > mapData.size()) {
+			if (r.x < 0 || r.x + r.l > (int) mapData.size()) {
 				valid = false;
 			}
-			if (r.y < 0 || r.y + r.l > mapData[0].size()) {
+			if (r.y < 0 || r.y + r.l > (int) mapData[0].size()) {
 				valid = false;
 			}
 
@@ -143,30 +143,30 @@ void Map::init(const int W, const int H, double density)
 	}
 
 	// adds houses
-	for (int x = 0; x < mapData.size(); x++) {
-		for (int y = 0; y < mapData[x].size(); y++) {
+	for (int x = 0; x < (int) mapData.size(); x++) {
+		for (int y = 0; y < (int) mapData[x].size(); y++) {
 
 			if (mapData[x][y] != terrain::Road) {
 
+				// checks if the area has a road on some side
 				int offsets[] = { -1, 0, 1 };
 
 				for (int offX : offsets) {
 
-					if (mapData.size() <= x + offX || x + offX < 0) {
+					if ((int) mapData.size() <= x + offX || x + offX < 0) {
 						continue;
 					}
 
 					for (int offY : offsets) {
 
-						if (mapData[x].size() <= y + offY || y + offY < 0) {
+						if ((int) mapData[x].size() <= y + offY || y + offY < 0) {
 							continue;
 						}
 
 						if (mapData[x + offX][y + offY] == terrain::Road) {
 
-							std::wostringstream os;
-							os << x;
-							OutputDebugString(os.str().c_str());
+							std::cout << "Added a house at (" << x << ", " << y << ")" << std::endl;
+
 							mapData[x][y] = terrain::House;
 
 							// checks the next square
@@ -187,11 +187,11 @@ void Map::init(const int W, const int H, double density)
 void Map::debugRender(sf::RenderWindow * window, int offX, int offY, int scale)
 {
 
-	for (int x = 0; x < mapData.size(); x++) {
-		for (int y = 0; y < mapData[x].size(); y++) {
+	for (int x = 0; x < (int)mapData.size(); x++) {
+		for (int y = 0; y < (int)mapData[x].size(); y++) {
 
-			sf::RectangleShape rect(sf::Vector2f(scale, scale));
-			rect.setPosition(sf::Vector2f(offX + scale * x, offY + scale * y));
+			sf::RectangleShape rect(sf::Vector2f((float)scale, (float)scale));
+			rect.setPosition(sf::Vector2f((float)(offX + scale * x), (float)(offY + scale * y)));
 
 			switch (mapData[x][y])
 			{
@@ -205,7 +205,6 @@ void Map::debugRender(sf::RenderWindow * window, int offX, int offY, int scale)
 					break;
 
 				case terrain::House:
-					OutputDebugString(L"Hello! \n");
 					rect.setFillColor(sf::Color::Red);
 					break;
 			}
