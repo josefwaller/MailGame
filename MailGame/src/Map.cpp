@@ -143,8 +143,8 @@ void Map::init(const int W, const int H, double density)
 	}
 
 	// adds houses
-	for (int x = 0; x < (int) mapData.size(); x++) {
-		for (int y = 0; y < (int) mapData[x].size(); y++) {
+	for (size_t x = 0; x < mapData.size(); x++) {
+		for (size_t y = 0; y < mapData[x].size(); y++) {
 
 			if (mapData[x][y] != terrain::Road) {
 
@@ -164,8 +164,6 @@ void Map::init(const int W, const int H, double density)
 						}
 
 						if (mapData[x + offX][y + offY] == terrain::Road) {
-
-							std::cout << "Added a house at (" << x << ", " << y << ")" << std::endl;
 
 							mapData[x][y] = terrain::House;
 
@@ -187,8 +185,8 @@ void Map::init(const int W, const int H, double density)
 void Map::debugRender(sf::RenderWindow * window, int offX, int offY, int scale)
 {
 
-	for (int x = 0; x < (int)mapData.size(); x++) {
-		for (int y = 0; y < (int)mapData[x].size(); y++) {
+	for (size_t x = 0; x < mapData.size(); x++) {
+		for (size_t y = 0; y < mapData[x].size(); y++) {
 
 			sf::RectangleShape rect(sf::Vector2f((float)scale, (float)scale));
 			rect.setPosition(sf::Vector2f((float)(offX + scale * x), (float)(offY + scale * y)));
@@ -211,5 +209,22 @@ void Map::debugRender(sf::RenderWindow * window, int offX, int offY, int scale)
 			window->draw(rect);
 		}
 	}
+
+}
+
+void Map::renderRoads(sf::RenderWindow * window)
+{
+
+	sf::Texture roadTexture;
+
+	std::string path = "assets/sprites/road.png";
+
+	if (!roadTexture.loadFromFile(path)) {
+		std::cout << "Failed to load texture at " << path << std::endl;
+	}
+
+	sf::Sprite roadSprite;
+	roadSprite.setTexture(roadTexture);
+
 
 }

@@ -18,6 +18,7 @@ void App::update()
 
 void App::render(sf::RenderWindow * window)
 {
+	m.renderRoads(window);
 	m.debugRender(window, 0, 0, 10);
 }
 
