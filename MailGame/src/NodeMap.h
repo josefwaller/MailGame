@@ -18,8 +18,10 @@ private:
 
 public:
 	NodeMap(vector<Vector2i> startingNodes = {}, vector<pair<int, int>> startingConnections = {});
-	void addNode(Vector2i position, vector<pair<int, int>> connections = {});
+	int addNode(Vector2i position, vector<int> startingConnections = {});
+	int splitConnection(Vector2i node, int nodeOne, int nodeTwo);
 	void addConnection(int nodeOne, int nodeTwo);
+	void removeConnection(int nodeOne, int nodeTwo);
 
 	bool isConnected(int nodeOne, int nodeTwo);
 	bool hasNode(Vector2i position);
