@@ -39,6 +39,9 @@ void Map::init(const int W, const int H, double density)
 		bool isH;
 	};
 
+	// initializes the nodemap
+	roadMap = NodeMap();
+
 	// the list of accepted roads
 	std::vector<road> roads = {};
 
@@ -96,6 +99,19 @@ void Map::init(const int W, const int H, double density)
 			if (valid) {
 				roads.push_back(r);
 
+				// adds this road to the NodeMap
+				int nOne = roadMap.addNode(Vector2i(r.x, r.y));
+
+				int nTwo;
+				if (r.isH) {
+					nTwo = roadMap.addNode(Vector2i(r.x + r.l, r.y));
+				}
+				else {
+					nTwo = roadMap.addNode(Vector2i(r.x, r.y + r.l));
+				}
+
+				roadMap.addConnection(nOne, nTwo);
+
 				// generates new roads from this road
 				for (int i = 0; i < NUM_OF_BRANCHES; i++) {
 
@@ -129,7 +145,9 @@ void Map::init(const int W, const int H, double density)
 	}
 
 	// adds them to the map
-	for (road r : roads) {
+	for (size_t i = 0; i < roads.size(); i++) {
+
+		road r = roads[i];
 
 		for (int i = 0; i < r.l; i++) {
 			if (r.isH) {

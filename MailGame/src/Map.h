@@ -1,4 +1,5 @@
 #pragma once
+#include "NodeMap.h"
 
 #include <vector>
 #include <SFML/Graphics.hpp>
@@ -16,4 +17,7 @@ public:
 private:
 	enum class terrain;
 	std::vector<std::vector<terrain>> mapData;
+
+	// nodemap of roads for pathfinding
+	NodeMap roadMap;
 };
