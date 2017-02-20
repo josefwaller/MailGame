@@ -21,12 +21,12 @@
   <ItemGroup>
     <ClCompile Include="src\App.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Map.cpp" />
+    <ClCompile Include="src\GameMap.cpp" />
     <ClCompile Include="src\NodeMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h" />
-    <ClInclude Include="src\Map.h" />
+    <ClInclude Include="src\GameMap.h" />
     <ClInclude Include="src\NodeMap.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

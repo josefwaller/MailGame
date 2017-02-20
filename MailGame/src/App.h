@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Map.h"
+#include "GameMap.h"
 
 #include <SFML/Graphics.hpp>
 
@@ -14,6 +14,6 @@ public:
 	void destroy();
 
 private:
-	Map m;
+	GameMap m;
 	int y;
 };

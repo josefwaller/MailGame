@@ -1,4 +1,4 @@
-#include "Map.h"
+#include "GameMap.h"
 
 #include "windows.h"
 
@@ -6,18 +6,18 @@
 #include <iostream>
 #include <sstream>
 
-enum class Map::terrain 
+enum class GameMap::terrain 
 {
 	Empty,
 	Road,
 	House
 };
 
-Map::Map()
+GameMap::GameMap()
 {
 }
 
-void Map::init(const int W, const int H, double density)
+void GameMap::init(const int W, const int H, double density)
 {
 	srand((unsigned int)time(0));
 
@@ -200,7 +200,7 @@ void Map::init(const int W, const int H, double density)
 
 }
 
-void Map::debugRender(sf::RenderWindow * window, int offX, int offY, int scale)
+void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY, int scale)
 {
 
 	for (size_t x = 0; x < mapData.size(); x++) {
@@ -230,7 +230,7 @@ void Map::debugRender(sf::RenderWindow * window, int offX, int offY, int scale)
 
 }
 
-void Map::renderRoads(sf::RenderWindow * window)
+void GameMap::renderRoads(sf::RenderWindow * window)
 {
 
 	sf::Texture roadTexture;

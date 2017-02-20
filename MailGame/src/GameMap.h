@@ -4,10 +4,10 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
-class Map
+class GameMap
 {
 public:
-	Map();
+	GameMap();
 	void init(const int W, const int H, double density);
 	void debugRender(sf::RenderWindow * window, int offX, int offY, int scale);
 

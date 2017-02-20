@@ -3,7 +3,7 @@
 
 App::App()
 {
-	m = Map();
+	m = GameMap();
 }
 
 void App::init()
