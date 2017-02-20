@@ -23,7 +23,7 @@ int NodeMap::addNode(Vector2i node, vector<int> startingConnections)
 		connections.push_back({ (int) nodes.size(), n });
 	}
 
-	return (int)(connections.size() - 1);
+	return (int)(nodes.size() - 1);
 }
 
 /*

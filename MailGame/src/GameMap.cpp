@@ -202,7 +202,7 @@ void GameMap::init(const int W, const int H, double density)
 
 void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY, int scale)
 {
-
+	/*
 	for (size_t x = 0; x < mapData.size(); x++) {
 		for (size_t y = 0; y < mapData[x].size(); y++) {
 
@@ -226,6 +226,38 @@ void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY, int sca
 			}
 			window->draw(rect);
 		}
+	}*/
+
+	for (size_t i = 0; i < roadMap.getConnections().size(); i++) {
+
+		OutputDebugString(L"Hello");
+		Vector2i nodeOne = roadMap.getNode(roadMap.getConnections()[i].first);
+		Vector2i nodeTwo = roadMap.getNode(roadMap.getConnections()[i].second);
+
+		nodeOne.x *= scale;
+		nodeTwo.x *= scale;
+		nodeOne.y *= scale;
+		nodeTwo.y *= scale;
+
+		sf::Vertex line[] = {
+			sf::Vertex((sf::Vector2f)nodeOne),
+			sf::Vertex((sf::Vector2f)nodeTwo)
+		};
+
+		window->draw(line, 2, sf::Lines);
+
+	}
+
+	for (size_t i = 0; i < roadMap.getNodes().size(); i++) {
+
+		Vector2i node = roadMap.getNode(i);
+
+		sf::CircleShape circ((float)scale * 0.5);
+		circ.setPosition((node.x - 0.5) * scale, (node.y - 0.5) * scale);
+		circ.setFillColor(sf::Color::Red);
+
+		window->draw(circ);
+
 	}
 
 }
