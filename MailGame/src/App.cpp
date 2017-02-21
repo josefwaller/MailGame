@@ -29,7 +29,7 @@ void App::update()
 void App::render(sf::RenderWindow * window)
 {
 
-	int scale = 20;
+	int scale = 2;
 	window->setView(gameView);
 	m.renderRoads(window, scale);
 

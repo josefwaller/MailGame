@@ -15,6 +15,9 @@ public:
 	void renderHouses(sf::RenderWindow * window);
 
 private:
+
+	void generateCity(int x, int y, int w, int h);
+
 	enum class terrain;
 
 	// 2D array of terrain used for checking whether the player

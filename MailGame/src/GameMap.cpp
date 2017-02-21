@@ -21,7 +21,20 @@ void GameMap::init(const int W, const int H, double density)
 {
 	srand((unsigned int)time(0));
 
-	mapData.assign(30, std::vector<terrain>(30, terrain::Empty));
+	mapData.assign(100, std::vector<terrain>(100, terrain::Empty));
+
+	// initializes the nodemap
+	roadMap = NodeMap();
+
+	generateCity(20, 20, 21, 20);
+	generateCity(40, 40, 21, 20);
+
+	roadMap.addNodesAtIntersections();
+
+}
+
+void GameMap::generateCity(int cityX, int cityY, int cityW, int cityH)
+{
 
 	// NOTE TO SELF: These control what the map looks like
 	const unsigned int MIN_LENGTH = 5;
@@ -39,9 +52,6 @@ void GameMap::init(const int W, const int H, double density)
 		bool isH;
 	};
 
-	// initializes the nodemap
-	roadMap = NodeMap();
-
 	// the list of accepted roads
 	std::vector<road> roads = {};
 
@@ -53,10 +63,10 @@ void GameMap::init(const int W, const int H, double density)
 
 	// starts off with a road
 	roadList.push_back({
-		(int)(rand() % (mapData.size() - MAX_LENGTH)), 
-		(int)(rand() % (mapData.size() - MAX_LENGTH)),
+		(int)(rand() % (MAX_LENGTH)),
+		(int)(rand() % (MAX_LENGTH)),
 		(int)(rand() % (MAX_LENGTH / 2) + MAX_LENGTH / 2),
-		true 
+		true
 	});
 
 	// does 15 degrees of roads
@@ -68,10 +78,10 @@ void GameMap::init(const int W, const int H, double density)
 			bool valid = true;
 
 			// checks if it is in bounds
-			if (r.x < 0 || r.x + r.l > (int) mapData.size()) {
+			if (cityX + r.x < 0 || cityX + r.x + r.l >(int) mapData.size()) {
 				valid = false;
 			}
-			if (r.y < 0 || r.y + r.l > (int) mapData[0].size()) {
+			if (cityY + r.y < 0 || cityY + r.y + r.l >(int) mapData[0].size()) {
 				valid = false;
 			}
 
@@ -100,14 +110,14 @@ void GameMap::init(const int W, const int H, double density)
 				roads.push_back(r);
 
 				// adds this road to the NodeMap
-				int nOne = roadMap.addNode(Vector2i(r.x, r.y));
+				int nOne = roadMap.addNode(Vector2i(cityX + r.x, cityY + r.y));
 
 				int nTwo;
 				if (r.isH) {
-					nTwo = roadMap.addNode(Vector2i(r.x + r.l, r.y));
+					nTwo = roadMap.addNode(Vector2i(cityX + r.x + r.l, cityY + r.y));
 				}
 				else {
-					nTwo = roadMap.addNode(Vector2i(r.x, r.y + r.l));
+					nTwo = roadMap.addNode(Vector2i(cityX + r.x, cityY + r.y + r.l));
 				}
 
 				roadMap.addConnection(nOne, nTwo);
@@ -130,7 +140,7 @@ void GameMap::init(const int W, const int H, double density)
 					}
 					else {
 
-						tempRoads.push_back({ r.x - randOffset, r.y + rand() % r.l, newLength, true});
+						tempRoads.push_back({ r.x - randOffset, r.y + rand() % r.l, newLength, true });
 
 					}
 
@@ -148,14 +158,13 @@ void GameMap::init(const int W, const int H, double density)
 
 		for (int i = 0; i < r.l; i++) {
 			if (r.isH) {
-				mapData[r.x + i][r.y] = terrain::Road;
-			} else {
-				mapData[r.x][r.y + i] = terrain::Road;
+				mapData[cityX + r.x + i][cityY + r.y] = terrain::Road;
+			}
+			else {
+				mapData[cityX + r.x][cityY + r.y + i] = terrain::Road;
 			}
 		}
 	}
-
-	roadMap.addNodesAtIntersections();
 
 }
 
