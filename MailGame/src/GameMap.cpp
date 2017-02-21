@@ -144,93 +144,15 @@ void GameMap::init(const int W, const int H, double density)
 
 	}
 
-	// adds them to the map
-	for (size_t i = 0; i < roads.size(); i++) {
-
-		road r = roads[i];
-
-		for (int i = 0; i < r.l; i++) {
-			if (r.isH) {
-				mapData[r.x + i][r.y] = terrain::Road;
-			}
-			else {
-				mapData[r.x][r.y + i] = terrain::Road;
-			}
-		}
-
-	}
-
-	// adds houses
-	for (size_t x = 0; x < mapData.size(); x++) {
-		for (size_t y = 0; y < mapData[x].size(); y++) {
-
-			if (mapData[x][y] != terrain::Road) {
-
-				// checks if the area has a road on some side
-				int offsets[] = { -1, 0, 1 };
-
-				for (int offX : offsets) {
-
-					if ((int) mapData.size() <= x + offX || x + offX < 0) {
-						continue;
-					}
-
-					for (int offY : offsets) {
-
-						if ((int) mapData[x].size() <= y + offY || y + offY < 0) {
-							continue;
-						}
-
-						if (mapData[x + offX][y + offY] == terrain::Road) {
-
-							mapData[x][y] = terrain::House;
-
-							// checks the next square
-							goto outerLoops;
-						}
-
-					}
-				}
-
-			}
-
-		outerLoops: ;
-		}
-	}
+	roadMap.addNodesAtIntersections();
 
 }
 
 void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY, int scale)
 {
-	/*
-	for (size_t x = 0; x < mapData.size(); x++) {
-		for (size_t y = 0; y < mapData[x].size(); y++) {
-
-			sf::RectangleShape rect(sf::Vector2f((float)scale, (float)scale));
-			rect.setPosition(sf::Vector2f((float)(offX + scale * x), (float)(offY + scale * y)));
-
-			switch (mapData[x][y])
-			{
-
-				case terrain::Empty:
-					rect.setFillColor(sf::Color::Green);
-					break;
-
-				case terrain::Road:
-					rect.setFillColor(sf::Color(61, 61, 61));
-					break;
-
-				case terrain::House:
-					rect.setFillColor(sf::Color::Red);
-					break;
-			}
-			window->draw(rect);
-		}
-	}*/
 
 	for (size_t i = 0; i < roadMap.getConnections().size(); i++) {
-
-		OutputDebugString(L"Hello");
+		
 		Vector2i nodeOne = roadMap.getNode(roadMap.getConnections()[i].first);
 		Vector2i nodeTwo = roadMap.getNode(roadMap.getConnections()[i].second);
 
@@ -254,7 +176,7 @@ void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY, int sca
 
 		sf::CircleShape circ((float)scale * 0.5);
 		circ.setPosition((node.x - 0.5) * scale, (node.y - 0.5) * scale);
-		circ.setFillColor(sf::Color::Red);
+		circ.setFillColor(sf::Color(255, 0, 0, 50));
 
 		window->draw(circ);
 

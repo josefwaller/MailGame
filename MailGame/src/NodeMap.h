@@ -20,8 +20,8 @@ public:
 	NodeMap(vector<Vector2i> startingNodes = {}, vector<pair<int, int>> startingConnections = {});
 	int addNode(Vector2i position, vector<int> startingConnections = {});
 
-	void crossConnections();
-	int splitConnection(Vector2i node, int nodeOne, int nodeTwo);
+	void addNodesAtIntersections();
+	void splitConnection(int middleNode, int nodeOne, int nodeTwo);
 
 	void addConnection(int nodeOne, int nodeTwo);
 	void removeConnection(int nodeOne, int nodeTwo);
