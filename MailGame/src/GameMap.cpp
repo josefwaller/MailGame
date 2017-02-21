@@ -197,8 +197,32 @@ void GameMap::renderRoads(sf::RenderWindow * window)
 
 	sf::Sprite roadSprite;
 	roadSprite.setTexture(roadTexture);
-	roadSprite.setPosition(200, 200);
 
-	window->draw(roadSprite);
+	sf::RectangleShape rect(sf::Vector2f(window->getSize().x - 40, window->getSize().y - 40));
+	rect.setPosition(20, 20);
+	rect.setFillColor(sf::Color::Red);
+	rect.setOutlineColor(sf::Color::Blue);
+	rect.setOutlineThickness(20);
+	window->draw(rect);
+
+	int scale = 20;
+	for (size_t i = 0; i < roadMap.getConnections().size(); i++) {
+
+		Vector2i nodeOne = roadMap.getNode(roadMap.getConnections()[i].first);
+		Vector2i nodeTwo = roadMap.getNode(roadMap.getConnections()[i].second);
+
+		nodeOne.x *= scale;
+		nodeTwo.x *= scale;
+		nodeOne.y *= scale;
+		nodeTwo.y *= scale;
+
+		sf::Vertex line[] = {
+			sf::Vertex((sf::Vector2f)nodeOne),
+			sf::Vertex((sf::Vector2f)nodeTwo)
+		};
+
+		window->draw(line, 2, sf::Lines);
+
+	}
 
 }
