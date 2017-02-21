@@ -7,7 +7,7 @@
 class App
 {
 public:
-	App();
+	App(const int W, const int H);
 	void init();
 	void update();
 	void render(sf::RenderWindow * window);
@@ -15,5 +15,10 @@ public:
 
 private:
 	GameMap m;
-	int y;
+
+	// the view of all game elements
+	sf::View gameView;
+
+	// the hud view
+	sf::View hudView;
 };

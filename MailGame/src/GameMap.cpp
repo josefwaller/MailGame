@@ -197,6 +197,8 @@ void GameMap::renderRoads(sf::RenderWindow * window)
 
 	sf::Sprite roadSprite;
 	roadSprite.setTexture(roadTexture);
+	roadSprite.setPosition(200, 200);
 
+	window->draw(roadSprite);
 
 }

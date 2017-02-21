@@ -5,10 +5,15 @@
 
 int main()
 {
-	// creates a new window
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Mail Game");
 
-	App app = App();
+	// sets the W and H
+	const int W = 800;
+	const int H = 600;
+
+	// creates a new window
+	sf::RenderWindow window(sf::VideoMode(W, H), "Mail Game");
+
+	App app = App(W, H);
 
 	// initializes the game
 	app.init();
