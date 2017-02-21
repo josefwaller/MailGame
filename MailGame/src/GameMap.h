@@ -11,7 +11,7 @@ public:
 	void init(const int W, const int H, double density);
 	void debugRender(sf::RenderWindow * window, int offX, int offY, int scale);
 
-	void renderRoads(sf::RenderWindow * window);
+	void renderRoads(sf::RenderWindow * window, int scale);
 	void renderHouses(sf::RenderWindow * window);
 
 private:

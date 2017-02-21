@@ -195,7 +195,7 @@ void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY, int sca
 
 }
 
-void GameMap::renderRoads(sf::RenderWindow * window)
+void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 {
 
 	sf::Texture roadTexture;
@@ -216,7 +216,6 @@ void GameMap::renderRoads(sf::RenderWindow * window)
 	rect.setOutlineThickness(20);
 	window->draw(rect);
 	
-	int scale = 20;
 	for (int x = 0; x < mapData.size(); x++) {
 		for (int y = 0; y < mapData[x].size(); y++) {
 
