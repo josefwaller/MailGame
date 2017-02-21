@@ -16,6 +16,8 @@ private:
 	// stores the connections as the two indexes 
 	std::vector<pair<int, int>> connections;
 
+	bool inRange(int i, int numOne, int numTwo);
+
 public:
 	NodeMap(vector<Vector2i> startingNodes = {}, vector<pair<int, int>> startingConnections = {});
 	int addNode(Vector2i position, vector<int> startingConnections = {});
@@ -25,6 +27,7 @@ public:
 
 	void addConnection(int nodeOne, int nodeTwo);
 	void removeConnection(int nodeOne, int nodeTwo);
+	pair<Vector2i, Vector2i> getNodesFromConnection(int index);
 
 	bool isConnected(int nodeOne, int nodeTwo);
 	bool hasNode(Vector2i position);

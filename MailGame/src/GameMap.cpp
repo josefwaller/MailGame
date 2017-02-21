@@ -176,7 +176,7 @@ void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY, int sca
 
 		sf::CircleShape circ((float)scale * 0.5);
 		circ.setPosition((node.x - 0.5) * scale, (node.y - 0.5) * scale);
-		circ.setFillColor(sf::Color(255, 0, 0, 50));
+		circ.setFillColor(sf::Color(255, 0, 0, 200));
 
 		window->draw(circ);
 
