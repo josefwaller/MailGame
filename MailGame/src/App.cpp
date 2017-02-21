@@ -5,9 +5,9 @@ App::App(const int W, const int H)
 {
 	m = GameMap();
 
-	gameView.reset(sf::FloatRect(0, 0, W, H));
+	gameView.reset(sf::FloatRect(0, 0, (float) W, (float) H));
 	gameView.rotate(45);
-	gameView.setSize(W, 2 * H);
+	gameView.setSize((float) W, (float)(2 * H));
 
 	hudView.reset(sf::FloatRect(0, 0, 200, 200));
 	hudView.setViewport(sf::FloatRect(0, 0, 0.2f, 0.2f));

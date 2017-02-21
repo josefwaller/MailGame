@@ -144,6 +144,17 @@ void GameMap::init(const int W, const int H, double density)
 
 	}
 
+	for (road r : roads) {
+
+		for (int i = 0; i < r.l; i++) {
+			if (r.isH) {
+				mapData[r.x + i][r.y] = terrain::Road;
+			} else {
+				mapData[r.x][r.y + i] = terrain::Road;
+			}
+		}
+	}
+
 	roadMap.addNodesAtIntersections();
 
 }
@@ -172,10 +183,10 @@ void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY, int sca
 
 	for (size_t i = 0; i < roadMap.getNodes().size(); i++) {
 
-		Vector2i node = roadMap.getNode(i);
+		Vector2i node = roadMap.getNode((int)i);
 
-		sf::CircleShape circ((float)scale * 0.5);
-		circ.setPosition((node.x - 0.5) * scale, (node.y - 0.5) * scale);
+		sf::CircleShape circ((float) (scale * 0.5));
+		circ.setPosition((float)((node.x - 0.5) * scale), (float)((node.y - 0.5) * scale));
 		circ.setFillColor(sf::Color(255, 0, 0, 200));
 
 		window->draw(circ);
@@ -198,31 +209,32 @@ void GameMap::renderRoads(sf::RenderWindow * window)
 	sf::Sprite roadSprite;
 	roadSprite.setTexture(roadTexture);
 
-	sf::RectangleShape rect(sf::Vector2f(window->getSize().x - 40, window->getSize().y - 40));
+	sf::RectangleShape rect(sf::Vector2f((float)(window->getSize().x - 40), (float)(window->getSize().y - 40)));
 	rect.setPosition(20, 20);
 	rect.setFillColor(sf::Color::Red);
 	rect.setOutlineColor(sf::Color::Blue);
 	rect.setOutlineThickness(20);
 	window->draw(rect);
-
+	
 	int scale = 20;
-	for (size_t i = 0; i < roadMap.getConnections().size(); i++) {
+	for (int x = 0; x < mapData.size(); x++) {
+		for (int y = 0; y < mapData[x].size(); y++) {
 
-		Vector2i nodeOne = roadMap.getNode(roadMap.getConnections()[i].first);
-		Vector2i nodeTwo = roadMap.getNode(roadMap.getConnections()[i].second);
+			sf::RectangleShape area(sf::Vector2f((float)scale, (float)scale));
+			area.setPosition((float)(scale * x), (float)(scale * y));
 
-		nodeOne.x *= scale;
-		nodeTwo.x *= scale;
-		nodeOne.y *= scale;
-		nodeTwo.y *= scale;
+			switch (mapData[x][y]) {
+				case terrain::Empty:
+					area.setFillColor(sf::Color::Green);
+					break;
 
-		sf::Vertex line[] = {
-			sf::Vertex((sf::Vector2f)nodeOne),
-			sf::Vertex((sf::Vector2f)nodeTwo)
-		};
+				case terrain::Road:
+					area.setFillColor(sf::Color(119, 119, 119));
+					break;
+			}
 
-		window->draw(line, 2, sf::Lines);
-
+			window->draw(area);
+		}
 	}
 
 }

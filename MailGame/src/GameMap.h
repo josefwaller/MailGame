@@ -16,6 +16,9 @@ public:
 
 private:
 	enum class terrain;
+
+	// 2D array of terrain used for checking whether the player
+	// can build stuff somewhere and for rendering
 	std::vector<std::vector<terrain>> mapData;
 
 	// nodemap of roads for pathfinding
