@@ -13,7 +13,7 @@ public:
 	void render(sf::RenderWindow * window);
 	void destroy();
 
-	static sf::Vector2i getRenderCoords(sf::Vector2i worldCoords);
+	static sf::Vector2f getRenderCoords(sf::Vector2f worldCoords);
 
 private:
 	GameMap m;

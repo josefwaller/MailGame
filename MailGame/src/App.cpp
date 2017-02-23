@@ -37,13 +37,13 @@ void App::render(sf::RenderWindow * window)
 	m.debugRender(window, 0, 0, scale);
 }
 
-sf::Vector2i App::getRenderCoords(sf::Vector2i worldCoords)
+sf::Vector2f App::getRenderCoords(sf::Vector2f worldCoords)
 {
 	// the angle to rotate things by
 	double theta = 3.14159 * 1 / 4.0;
 
 	// returns a new pair of X,Y coordinates
-	return sf::Vector2i(
+	return sf::Vector2f(
 		worldCoords.x * cos(theta) - worldCoords.y * sin(theta),
 		0.5 * (worldCoords.y * cos(theta) + worldCoords.x * sin(theta)));
 }

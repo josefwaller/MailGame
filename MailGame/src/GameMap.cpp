@@ -7,6 +7,8 @@
 #include <iostream>
 #include <sstream>
 
+using sf::Vector2f;
+
 enum class GameMap::terrain 
 {
 	Empty,
@@ -229,12 +231,12 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 	// draws a debug grid
 	for (int x = 0; x < mapData.size(); x++) {
 
-		Vector2i origin = App::getRenderCoords(Vector2i(x * scale, 0));
-		Vector2i endPoint = App::getRenderCoords(Vector2i(x * scale, mapData[0].size() * scale));
+		Vector2f origin = App::getRenderCoords(Vector2f(x * scale, 0));
+		Vector2f endPoint = App::getRenderCoords(Vector2f(x * scale, mapData[0].size() * scale));
 
 		sf::Vertex line[] = {
-			sf::Vertex(sf::Vector2f(origin)),
-			sf::Vertex(sf::Vector2f(endPoint))
+			sf::Vertex(origin),
+			sf::Vertex(endPoint)
 		};
 
 		window->draw(line, 2, sf::Lines);
@@ -242,16 +244,32 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 
 	for (int y = 0; y < mapData[0].size(); y++) {
 
-		Vector2i origin = App::getRenderCoords(Vector2i(0, y * scale));
-		Vector2i endPoint = App::getRenderCoords(Vector2i(mapData[0].size() * scale, y * scale));
+		Vector2f origin = App::getRenderCoords(Vector2f(0, y * scale));
+		Vector2f endPoint = App::getRenderCoords(Vector2f(mapData[0].size() * scale, y * scale));
 
 		sf::Vertex line[] = {
-			sf::Vertex((sf::Vector2f)origin),
-			sf::Vertex((sf::Vector2f)endPoint)
+			sf::Vertex(origin),
+			sf::Vertex(endPoint)
 		};
 
 		window->draw(line, 2, sf::Lines);
 
+	}
+
+	for (int x = 0; x < mapData.size(); x++) {
+		for (int y = 0; y < mapData[x].size(); y++) {
+
+			sf::RectangleShape middlePoint(sf::Vector2f(1, 1));
+			middlePoint.setFillColor(sf::Color::Red);
+
+			Vector2f middle = App::getRenderCoords(Vector2f(
+				(x + 0.5) * scale,
+				(y + 0.5) * scale
+			));
+			middlePoint.setPosition(middle);
+			window->draw(middlePoint);
+
+		}
 	}
 
 }
