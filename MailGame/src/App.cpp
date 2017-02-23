@@ -8,8 +8,8 @@ App::App(const int W, const int H)
 	// both viewports show the whole map, but hudView scales
 	// it down to 20% of the screen width
 	gameView.reset(sf::FloatRect(0, 0, (float) W, (float) H));
-	gameView.rotate(45);
-	gameView.setSize((float) W, (float)(2 * H));
+	/*gameView.rotate(45);
+	gameView.setSize((float) W, (float)(2 * H));*/
 
 	hudView.reset(sf::FloatRect(0, 0, (float)W, (float)H));
 	hudView.setViewport(sf::FloatRect(0, 0, 0.2f, 0.2f));
@@ -29,7 +29,7 @@ void App::update()
 void App::render(sf::RenderWindow * window)
 {
 
-	int scale = 2;
+	int scale = 20;
 	window->setView(gameView);
 	m.renderRoads(window, scale);
 
@@ -37,9 +37,15 @@ void App::render(sf::RenderWindow * window)
 	m.debugRender(window, 0, 0, scale);
 }
 
-std::pair<int, int> App::getRenderCoords(std::pair<int, int> worldCoords)
+sf::Vector2i App::getRenderCoords(sf::Vector2i worldCoords)
 {
-	return wordCoords;
+	// the angle to rotate things by
+	double theta = 3.14159 * 1 / 4.0;
+
+	// returns a new pair of X,Y coordinates
+	return sf::Vector2i(
+		worldCoords.x * cos(theta) - worldCoords.y * sin(theta),
+		0.5 * (worldCoords.y * cos(theta) + worldCoords.x * sin(theta)));
 }
 
 void App::destroy()

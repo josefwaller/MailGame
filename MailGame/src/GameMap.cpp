@@ -1,4 +1,5 @@
 #include "GameMap.h"
+#include "App.h"
 
 #include "windows.h"
 
@@ -26,7 +27,7 @@ void GameMap::init(const int W, const int H, double density)
 	// initializes the nodemap
 	roadMap = NodeMap();
 
-	generateCity(20, 20, 21, 20);
+	generateCity(10, 10, 21, 20);
 	generateCity(40, 40, 21, 20);
 
 	roadMap.addNodesAtIntersections();
@@ -209,12 +210,12 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 
 	sf::Texture roadTexture;
 
-	std::string path = "assets/sprites/road.png";
+	std::string path = "assets/sprites/road_base.png";
 
 	if (!roadTexture.loadFromFile(path)) {
 		std::cout << "Failed to load texture at " << path << std::endl;
 	}
-
+/*
 	sf::Sprite roadSprite;
 	roadSprite.setTexture(roadTexture);
 
@@ -223,28 +224,34 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 	rect.setFillColor(sf::Color::Red);
 	rect.setOutlineColor(sf::Color::Blue);
 	rect.setOutlineThickness(20);
-	window->draw(rect);
+	window->draw(rect);*/
 	
+	// draws a debug grid
 	for (int x = 0; x < mapData.size(); x++) {
-		for (int y = 0; y < mapData[x].size(); y++) {
 
-			sf::RectangleShape area(sf::Vector2f((float)scale, (float)scale));
-			area.setPosition((float)(scale * x), (float)(scale * y));
+		Vector2i origin = App::getRenderCoords(Vector2i(x * scale, 0));
+		Vector2i endPoint = App::getRenderCoords(Vector2i(x * scale, mapData[0].size() * scale));
 
-			switch (mapData[x][y]) {
-				case terrain::Empty:
-					area.setFillColor(sf::Color::Green);
-					break;
+		sf::Vertex line[] = {
+			sf::Vertex(sf::Vector2f(origin)),
+			sf::Vertex(sf::Vector2f(endPoint))
+		};
 
-				case terrain::Road:
-					area.setFillColor(sf::Color(119, 119, 119));
-					break;
-			}
+		window->draw(line, 2, sf::Lines);
+	}
 
-			window->draw(area);
+	for (int y = 0; y < mapData[0].size(); y++) {
 
-			roadSprite.setPosition(scale * x, scale * y);
-		}
+		Vector2i origin = App::getRenderCoords(Vector2i(0, y * scale));
+		Vector2i endPoint = App::getRenderCoords(Vector2i(mapData[0].size() * scale, y * scale));
+
+		sf::Vertex line[] = {
+			sf::Vertex((sf::Vector2f)origin),
+			sf::Vertex((sf::Vector2f)endPoint)
+		};
+
+		window->draw(line, 2, sf::Lines);
+
 	}
 
 }
