@@ -210,17 +210,26 @@ void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY, int sca
 void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 {
 
-	sf::Texture roadTexture;
+	sf::Texture testTexture;
 
-	std::string path = "assets/sprites/road_base.png";
+	std::string path = "assets/sprites/test_tile.png";
 
-	if (!roadTexture.loadFromFile(path)) {
+	if (!testTexture.loadFromFile(path)) {
 		std::cout << "Failed to load texture at " << path << std::endl;
 	}
-/*
-	sf::Sprite roadSprite;
-	roadSprite.setTexture(roadTexture);
+	sf::Sprite testSprite;
+	testSprite.setTexture(testTexture);
 
+	// sets the origin to center so they can be easily drawn
+	sf::FloatRect spriteBounds = testSprite.getGlobalBounds();
+	testSprite.setOrigin(spriteBounds.width / 2, spriteBounds.height / 2);
+
+	float pointDis = App::getRenderCoords(Vector2f(1, 0)).y - App::getRenderCoords(Vector2f(0, 1)).y;
+
+	std::cout << pointDis << std::endl;
+	// sets the size
+	testSprite.setScale(1, 1);
+/*
 	sf::RectangleShape rect(sf::Vector2f((float)(window->getSize().x - 40), (float)(window->getSize().y - 40)));
 	rect.setPosition(20, 20);
 	rect.setFillColor(sf::Color::Red);
@@ -231,6 +240,7 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 	// draws a debug grid
 	for (int x = 0; x < mapData.size(); x++) {
 
+		// gets the coordinates
 		Vector2f origin = App::getRenderCoords(Vector2f(x * scale, 0));
 		Vector2f endPoint = App::getRenderCoords(Vector2f(x * scale, mapData[0].size() * scale));
 
@@ -239,6 +249,7 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 			sf::Vertex(endPoint)
 		};
 
+		// draws the line
 		window->draw(line, 2, sf::Lines);
 	}
 
@@ -259,14 +270,24 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 	for (int x = 0; x < mapData.size(); x++) {
 		for (int y = 0; y < mapData[x].size(); y++) {
 
-			sf::RectangleShape middlePoint(sf::Vector2f(1, 1));
-			middlePoint.setFillColor(sf::Color::Red);
-
+			// gets the middle point
 			Vector2f middle = App::getRenderCoords(Vector2f(
 				(x + 0.5) * scale,
 				(y + 0.5) * scale
 			));
+
+			// draws the sprite
+			testSprite.setPosition(middle);
+			window->draw(testSprite);
+
+			// creates a new rectangle
+			sf::RectangleShape middlePoint(sf::Vector2f(1, 1));
+			middlePoint.setFillColor(sf::Color::Red);
+
+			// sets the rect's position
 			middlePoint.setPosition(middle);
+
+			// draws the point
 			window->draw(middlePoint);
 
 		}
