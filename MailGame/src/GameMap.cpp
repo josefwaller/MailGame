@@ -242,6 +242,8 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 			}
 
 			window->draw(area);
+
+			roadSprite.setPosition(scale * x, scale * y);
 		}
 	}
 

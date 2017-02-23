@@ -37,6 +37,11 @@ void App::render(sf::RenderWindow * window)
 	m.debugRender(window, 0, 0, scale);
 }
 
+std::pair<int, int> App::getRenderCoords(std::pair<int, int> worldCoords)
+{
+	return wordCoords;
+}
+
 void App::destroy()
 {
 

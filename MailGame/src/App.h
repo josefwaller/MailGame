@@ -13,6 +13,8 @@ public:
 	void render(sf::RenderWindow * window);
 	void destroy();
 
+	std::pair<int, int> getRenderCoords(std::pair<int, int> worldCoords);
+
 private:
 	GameMap m;
 
