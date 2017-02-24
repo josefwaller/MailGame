@@ -224,11 +224,12 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 	sf::FloatRect spriteBounds = testSprite.getGlobalBounds();
 	testSprite.setOrigin(spriteBounds.width / 2, spriteBounds.height / 2);
 
-	float pointDis = App::getRenderCoords(Vector2f(1, 0)).y - App::getRenderCoords(Vector2f(0, 1)).y;
+	float pointDis = App::getRenderCoords(Vector2f(0, 0)).y - App::getRenderCoords(Vector2f(1, 1)).y;
 
-	std::cout << pointDis << std::endl;
+	App::logToConsole<double>(pointDis);
+
 	// sets the size
-	testSprite.setScale(1, 1);
+	testSprite.setScale(scale * pointDis / spriteBounds.width, 1);
 /*
 	sf::RectangleShape rect(sf::Vector2f((float)(window->getSize().x - 40), (float)(window->getSize().y - 40)));
 	rect.setPosition(20, 20);
@@ -241,8 +242,8 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 	for (int x = 0; x < mapData.size(); x++) {
 
 		// gets the coordinates
-		Vector2f origin = App::getRenderCoords(Vector2f(x * scale, 0));
-		Vector2f endPoint = App::getRenderCoords(Vector2f(x * scale, mapData[0].size() * scale));
+		Vector2f origin = App::getRenderCoords(Vector2f((float)(x * scale), 0));
+		Vector2f endPoint = App::getRenderCoords(Vector2f((float)(x * scale), (float)(mapData[0].size() * scale)));
 
 		sf::Vertex line[] = {
 			sf::Vertex(origin),
