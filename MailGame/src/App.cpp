@@ -29,12 +29,17 @@ void App::update()
 void App::render(sf::RenderWindow * window)
 {
 
-	int scale = 20;
+	int scale = App::getScale();
 	window->setView(gameView);
 	m.renderRoads(window, scale);
 
 	window->setView(hudView);
 	m.debugRender(window, 0, 0, scale);
+}
+
+int App::getScale()
+{
+	return 40;
 }
 
 sf::Vector2f App::getRenderCoords(sf::Vector2f worldCoords)
@@ -44,8 +49,8 @@ sf::Vector2f App::getRenderCoords(sf::Vector2f worldCoords)
 
 	// returns a new pair of X,Y coordinates
 	return sf::Vector2f(
-		worldCoords.x  - worldCoords.y,
-		0.5 * (worldCoords.y + worldCoords.x));
+		ceil(worldCoords.x  - worldCoords.y),
+		ceil(0.5 * (worldCoords.y + worldCoords.x)));
 }
 
 void App::destroy()

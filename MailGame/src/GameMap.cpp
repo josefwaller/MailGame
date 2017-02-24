@@ -34,6 +34,23 @@ void GameMap::init(const int W, const int H, double density)
 
 	roadMap.addNodesAtIntersections();
 
+	std::string path = "assets/sprites/test_tile.png";
+
+	if (!testTexture.loadFromFile(path)) {
+		std::cout << "Failed to load texture at " << path << std::endl;
+	}
+	testSprite.setTexture(testTexture);
+
+	// sets the origin to center so they can be easily drawn
+	sf::FloatRect spriteBounds = testSprite.getGlobalBounds();
+	testSprite.setOrigin(spriteBounds.width / 2.0, spriteBounds.height / 2.0);
+
+	Vector2f origin = App::getRenderCoords(Vector2f(0, 0));
+	Vector2f end = App::getRenderCoords(Vector2f(App::getScale(), App::getScale()));
+
+	// sets the size
+	testSprite.setScale(ceil(end.y / spriteBounds.height), ceil(end.y / spriteBounds.height));
+
 }
 
 void GameMap::generateCity(int cityX, int cityY, int cityW, int cityH)
@@ -210,33 +227,32 @@ void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY, int sca
 void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 {
 
-	sf::Texture testTexture;
+	for (int x = 0; x < mapData.size(); x++) {
+		for (int y = 0; y < mapData[x].size(); y++) {
 
-	std::string path = "assets/sprites/test_tile.png";
+			// gets the middle point
+			Vector2f middle = App::getRenderCoords(Vector2f(
+				(x + 0.5) * scale,
+				(y + 0.5) * scale
+			));
 
-	if (!testTexture.loadFromFile(path)) {
-		std::cout << "Failed to load texture at " << path << std::endl;
+			// draws the sprite
+			testSprite.setPosition(middle);
+			window->draw(testSprite);
+
+			// creates a new rectangle
+			sf::RectangleShape middlePoint(sf::Vector2f(1, 1));
+			middlePoint.setFillColor(sf::Color::Red);
+
+			// sets the rect's position
+			middlePoint.setPosition(middle);
+
+			// draws the point
+			window->draw(middlePoint);
+
+		}
 	}
-	sf::Sprite testSprite;
-	testSprite.setTexture(testTexture);
 
-	// sets the origin to center so they can be easily drawn
-	sf::FloatRect spriteBounds = testSprite.getGlobalBounds();
-	testSprite.setOrigin(spriteBounds.width / 2, spriteBounds.height / 2);
-
-	Vector2f origin = App::getRenderCoords(Vector2f(0, 0));
-	Vector2f end = App::getRenderCoords(Vector2f(scale, scale));
-
-	// sets the size
-	testSprite.setScale(ceil(end.y / spriteBounds.height), ceil(end.y / spriteBounds.height));
-/*
-	sf::RectangleShape rect(sf::Vector2f((float)(window->getSize().x - 40), (float)(window->getSize().y - 40)));
-	rect.setPosition(20, 20);
-	rect.setFillColor(sf::Color::Red);
-	rect.setOutlineColor(sf::Color::Blue);
-	rect.setOutlineThickness(20);
-	window->draw(rect);*/
-	
 	// draws a debug grid
 	for (int x = 0; x < mapData.size(); x++) {
 
@@ -265,32 +281,6 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 
 		window->draw(line, 2, sf::Lines);
 
-	}
-
-	for (int x = 0; x < mapData.size(); x++) {
-		for (int y = 0; y < mapData[x].size(); y++) {
-
-			// gets the middle point
-			Vector2f middle = App::getRenderCoords(Vector2f(
-				(x + 0.5) * scale,
-				(y + 0.5) * scale
-			));
-
-			// draws the sprite
-			testSprite.setPosition(middle);
-			window->draw(testSprite);
-
-			// creates a new rectangle
-			sf::RectangleShape middlePoint(sf::Vector2f(1, 1));
-			middlePoint.setFillColor(sf::Color::Red);
-
-			// sets the rect's position
-			middlePoint.setPosition(middle);
-
-			// draws the point
-			window->draw(middlePoint);
-
-		}
 	}
 
 }

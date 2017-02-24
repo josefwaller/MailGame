@@ -14,6 +14,8 @@ public:
 	void render(sf::RenderWindow * window);
 	void destroy();
 
+	static int getScale();
+
 	static sf::Vector2f getRenderCoords(sf::Vector2f worldCoords);
 
 	// used for logging
