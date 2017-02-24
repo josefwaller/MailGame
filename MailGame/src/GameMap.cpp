@@ -224,12 +224,11 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 	sf::FloatRect spriteBounds = testSprite.getGlobalBounds();
 	testSprite.setOrigin(spriteBounds.width / 2, spriteBounds.height / 2);
 
-	float pointDis = App::getRenderCoords(Vector2f(0, 0)).y - App::getRenderCoords(Vector2f(1, 1)).y;
-
-	App::logToConsole<double>(pointDis);
+	Vector2f origin = App::getRenderCoords(Vector2f(0, 0));
+	Vector2f end = App::getRenderCoords(Vector2f(scale, scale));
 
 	// sets the size
-	testSprite.setScale(scale * pointDis / spriteBounds.width, 1);
+	testSprite.setScale(ceil(end.y / spriteBounds.height), ceil(end.y / spriteBounds.height));
 /*
 	sf::RectangleShape rect(sf::Vector2f((float)(window->getSize().x - 40), (float)(window->getSize().y - 40)));
 	rect.setPosition(20, 20);
