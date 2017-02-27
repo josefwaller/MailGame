@@ -23,11 +23,13 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\GameMap.cpp" />
     <ClCompile Include="src\NodeMap.cpp" />
+    <ClCompile Include="src\ResrouceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h" />
     <ClInclude Include="src\GameMap.h" />
     <ClInclude Include="src\NodeMap.h" />
+    <ClInclude Include="src\ResourceManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DF29DD38-E199-4D8E-B1FB-CFD4CAC20113}</ProjectGuid>
