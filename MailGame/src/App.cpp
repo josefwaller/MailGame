@@ -8,9 +8,9 @@ App::App(const int W, const int H)
 	// both viewports show the whole map, but hudView scales
 	// it down to 20% of the screen width
 	gameView.reset(sf::FloatRect(-100, 0, (float) W, (float) H));
-	/*gameView.rotate(45);
-	gameView.setSize((float) W, (float)(2 * H));*/
 
+	// draws debug info
+	// ex: nodemap
 	hudView.reset(sf::FloatRect(0, 0, (float)W, (float)H));
 	hudView.setViewport(sf::FloatRect(0, 0, 0.2f, 0.2f));
 	

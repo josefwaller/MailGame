@@ -22,7 +22,7 @@ private:
 	sf::Sprite testSprite;
 	sf::Sprite roadSprite;
 
-	void generateCity(int x, int y, int w, int h);
+	void generateCity(int x, int y, int l);
 	sf::Sprite loadTileSprite(string fPath);
 
 	enum class terrain;

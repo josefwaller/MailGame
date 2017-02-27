@@ -27,12 +27,13 @@ void GameMap::init(const int W, const int H, double density)
 {
 	srand((unsigned int)time(0));
 
+	// starts map with 100 by 100
 	mapData.assign(100, std::vector<terrain>(100, terrain::Empty));
 
 	// initializes the nodemap
 	roadMap = NodeMap();
 
-	generateCity(10, 10, 21, 20);
+	generateCity(11, 11, 10);
 	//generateCity(40, 40, 21, 20);
 
 	roadMap.addNodesAtIntersections();
@@ -42,7 +43,7 @@ void GameMap::init(const int W, const int H, double density)
 
 }
 
-void GameMap::generateCity(int cityX, int cityY, int cityW, int cityH)
+void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
 {
 
 	// NOTE TO SELF: These control what the map looks like
@@ -70,13 +71,28 @@ void GameMap::generateCity(int cityX, int cityY, int cityW, int cityH)
 	// the list of roads to check next time
 	std::vector<road> tempRoads = {};
 
-	// starts off with a road
-	roadList.push_back({
-		(int)(rand() % (MAX_LENGTH)),
-		(int)(rand() % (MAX_LENGTH)),
-		(int)(rand() % (MAX_LENGTH / 2) + MAX_LENGTH / 2),
-		true
-	});
+	// starts with 4 fours each going in a different direction
+	for (int i = 0; i < 2; i++) {
+
+		int x = 0;
+		int y = 0;
+
+		bool isH = i % 2 == 0;
+
+		if (isH) {
+			x = -startingRoadL;
+		} 
+		else {
+			y = -startingRoadL;
+		}
+
+		roadList.push_back({
+			x,
+			y,
+			2 * startingRoadL,
+			isH
+		});
+	}
 
 	// does 15 degrees of roads
 	for (int i = 0; i < FRACTAL_LIMIT; i++) {
