@@ -1,19 +1,28 @@
 #include "App.h"
 #include "windows.h"
 
-App::App(const int W, const int H)
+App::App(const int screenW, const int screenH, RenderWindow * gameWindow)
 {
 	m = GameMap();
 
+	W = screenW;
+	H = screenH;
+
+	// starts deltaTime
+	deltaClock.restart();
+
+	// saves the window
+	window = gameWindow;
+
 	// both viewports show the whole map, but hudView scales
 	// it down to 20% of the screen width
-	gameView.reset(sf::FloatRect(-100, 0, (float) W, (float) H));
+	gameView.reset(sf::FloatRect(0, 0, (float)W, (float)H));
 
 	// draws debug info
 	// ex: nodemap
 	hudView.reset(sf::FloatRect(0, 0, (float)W, (float)H));
 	hudView.setViewport(sf::FloatRect(0, 0, 0.2f, 0.2f));
-	
+
 }
 
 void App::init()
@@ -24,6 +33,18 @@ void App::init()
 void App::update()
 {
 
+	sf::Time dt = deltaClock.restart();
+
+	sf::Vector2i mPos = sf::Mouse::getPosition(*window);
+
+	if (mPos.x < W * mouseThreshold) {
+		gameView.move(-screenSpeed * dt.asSeconds(), 0);
+	}
+	else if (mPos.x > W - W * mouseThreshold) {
+		
+		gameView.move(screenSpeed * dt.asSeconds(), 0);
+
+	}
 }
 
 void App::render(sf::RenderWindow * window)

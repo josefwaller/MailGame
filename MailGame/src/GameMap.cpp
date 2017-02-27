@@ -299,7 +299,7 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 		// draws the line
 		window->draw(line, 2, sf::Lines);
 	}
-
+	
 	for (int y = 0; y < mapData[0].size(); y++) {
 
 		Vector2f origin = App::getRenderCoords(Vector2f(0, y * scale));
@@ -313,5 +313,4 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 		window->draw(line, 2, sf::Lines);
 
 	}
-
 }

@@ -8,7 +8,7 @@
 class App
 {
 public:
-	App(const int W, const int H);
+	App(const int W, const int H, sf::RenderWindow * gameWindow);
 	void init();
 	void update();
 	void render(sf::RenderWindow * window);
@@ -29,7 +29,25 @@ public:
 	}
 
 private:
+
+	// the game map
 	GameMap m;
+
+	// the dimensions of the window
+	int W;
+	int H;
+
+	// the window the game exists in
+	sf::RenderWindow * window;
+
+	// clock used for recording deltaTime
+	sf::Clock deltaClock;
+
+	// how close the mouse can get to the edge of the screen without the screen panning
+	const float mouseThreshold = 0.2;
+
+	// the speed at which the screen pans
+	const int screenSpeed = 20;
 
 	// the view of all game elements
 	sf::View gameView;

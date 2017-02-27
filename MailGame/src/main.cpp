@@ -13,7 +13,7 @@ int main()
 	// creates a new window
 	sf::RenderWindow window(sf::VideoMode(W, H), "Mail Game");
 
-	App app = App(W, H);
+	App app = App(W, H, &window);
 
 	// initializes the game
 	app.init();
