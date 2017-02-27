@@ -1,5 +1,6 @@
 #include "GameMap.h"
 #include "App.h"
+#include "ResourceManager.h"
 
 #include "windows.h"
 
@@ -36,10 +37,7 @@ void GameMap::init(const int W, const int H, double density)
 
 	std::string path = "assets/sprites/test_tile.png";
 
-	if (!testTexture.loadFromFile(path)) {
-		std::cout << "Failed to load texture at " << path << std::endl;
-	}
-	testSprite.setTexture(testTexture);
+	testSprite = *ResourceManager::get()->loadSprite(path);
 
 	path = "assets/sprites/roads/road_base.png";
 	if (!roadTexture.loadFromFile(path)) {

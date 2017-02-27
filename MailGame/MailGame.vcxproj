@@ -23,7 +23,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\GameMap.cpp" />
     <ClCompile Include="src\NodeMap.cpp" />
-    <ClCompile Include="src\ResrouceManager.cpp" />
+    <ClCompile Include="src\ResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h" />
