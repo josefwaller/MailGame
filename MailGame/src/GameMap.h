@@ -19,11 +19,11 @@ public:
 
 private:
 
-	sf::Sprite * testSprite;
-	sf::Sprite * roadSprite;
+	sf::Sprite testSprite;
+	sf::Sprite roadSprite;
 
 	void generateCity(int x, int y, int w, int h);
-	sf::Sprite * loadTileSprite(string fPath);
+	sf::Sprite loadTileSprite(string fPath);
 
 	enum class terrain;
 

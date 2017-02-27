@@ -177,19 +177,19 @@ void GameMap::generateCity(int cityX, int cityY, int cityW, int cityH)
 
 }
 
-sf::Sprite * GameMap::loadTileSprite(string fPath)
+sf::Sprite GameMap::loadTileSprite(string fPath)
 {
-	sf::Sprite * sprite = ResourceManager::get()->loadSprite(fPath);
+	sf::Sprite sprite = sf::Sprite(*ResourceManager::get()->loadSprite(fPath));
 
 	// sets the origin to center so they can be easily drawn
-	sf::FloatRect spriteBounds = sprite->getGlobalBounds();
-	sprite->setOrigin(spriteBounds.width / 2.0, spriteBounds.height / 2.0);
+	sf::FloatRect spriteBounds = sprite.getGlobalBounds();
+	sprite.setOrigin(0.5 * spriteBounds.width, 0.5 * spriteBounds.height);
 
 	Vector2f origin = App::getRenderCoords(Vector2f(0, 0));
-	Vector2f end = App::getRenderCoords(Vector2f(App::getScale(), App::getScale()));
+	Vector2f end = App::getRenderCoords(Vector2f(1, 1));
 
-	// sets the size
-	sprite->setScale(ceil(end.y / spriteBounds.height), ceil(end.y / spriteBounds.height));
+	float scale = (end.y - origin.y) * App::getScale() / spriteBounds.height;
+	sprite.setScale(scale, scale);
 
 	return sprite;
 }
@@ -242,16 +242,18 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 				(y + 0.5) * scale
 			));
 
+			// draws the background spritre
+			testSprite.setPosition(middle);
+			window->draw(testSprite);
+
 			// draws the sprite
 			sf::Sprite sprite;
 
 			if (mapData[x][y] == terrain::Road) {
-				sprite = *roadSprite;
-			} else {
-				sprite = *testSprite;
+				sprite = roadSprite;
+				sprite.setPosition(middle);
+				window->draw(sprite);
 			}
-			sprite.setPosition(middle);
-			window->draw(sprite);
 
 			// creates a new rectangle
 			sf::RectangleShape middlePoint(sf::Vector2f(1, 1));
