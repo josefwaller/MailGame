@@ -30,7 +30,7 @@ void GameMap::init(const int W, const int H, double density)
 	roadMap = NodeMap();
 
 	generateCity(10, 10, 21, 20);
-	generateCity(40, 40, 21, 20);
+	//generateCity(40, 40, 21, 20);
 
 	roadMap.addNodesAtIntersections();
 
@@ -40,6 +40,12 @@ void GameMap::init(const int W, const int H, double density)
 		std::cout << "Failed to load texture at " << path << std::endl;
 	}
 	testSprite.setTexture(testTexture);
+
+	path = "assets/sprites/roads/road_base.png";
+	if (!roadTexture.loadFromFile(path)) {
+		std::cout << "Failure!" << std::endl;
+	}
+	roadSprite.setTexture(roadTexture);
 
 	// sets the origin to center so they can be easily drawn
 	sf::FloatRect spriteBounds = testSprite.getGlobalBounds();
@@ -237,8 +243,15 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 			));
 
 			// draws the sprite
-			testSprite.setPosition(middle);
-			window->draw(testSprite);
+			sf::Sprite sprite;
+
+			if (mapData[x][y] == terrain::Road) {
+				sprite = roadSprite;
+			} else {
+				sprite = testSprite;
+			}
+			sprite.setPosition(middle);
+			window->draw(sprite);
 
 			// creates a new rectangle
 			sf::RectangleShape middlePoint(sf::Vector2f(1, 1));

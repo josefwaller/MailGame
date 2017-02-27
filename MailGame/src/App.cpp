@@ -39,7 +39,7 @@ void App::render(sf::RenderWindow * window)
 
 int App::getScale()
 {
-	return 40;
+	return 10;
 }
 
 sf::Vector2f App::getRenderCoords(sf::Vector2f worldCoords)

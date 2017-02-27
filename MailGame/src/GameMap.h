@@ -19,6 +19,9 @@ private:
 	sf::Texture testTexture;
 	sf::Sprite testSprite;
 
+	sf::Texture roadTexture;
+	sf::Sprite roadSprite;
+
 	void generateCity(int x, int y, int w, int h);
 
 	enum class terrain;
