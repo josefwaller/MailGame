@@ -3,12 +3,14 @@
 #include "ResourceManager.h"
 
 #include "windows.h"
+#include <SFML/Graphics.hpp>
 
 #include <vector>
 #include <iostream>
 #include <sstream>
 
-using sf::Vector2f;
+using namespace std;
+using namespace sf;
 
 enum class GameMap::terrain 
 {
@@ -35,25 +37,8 @@ void GameMap::init(const int W, const int H, double density)
 
 	roadMap.addNodesAtIntersections();
 
-	std::string path = "assets/sprites/test_tile.png";
-
-	testSprite = *ResourceManager::get()->loadSprite(path);
-
-	path = "assets/sprites/roads/road_base.png";
-	if (!roadTexture.loadFromFile(path)) {
-		std::cout << "Failure!" << std::endl;
-	}
-	roadSprite.setTexture(roadTexture);
-
-	// sets the origin to center so they can be easily drawn
-	sf::FloatRect spriteBounds = testSprite.getGlobalBounds();
-	testSprite.setOrigin(spriteBounds.width / 2.0, spriteBounds.height / 2.0);
-
-	Vector2f origin = App::getRenderCoords(Vector2f(0, 0));
-	Vector2f end = App::getRenderCoords(Vector2f(App::getScale(), App::getScale()));
-
-	// sets the size
-	testSprite.setScale(ceil(end.y / spriteBounds.height), ceil(end.y / spriteBounds.height));
+	testSprite = loadTileSprite("assets/sprites/test_tile.png");
+	roadSprite = loadTileSprite("assets/sprites/roads/road_base.png");
 
 }
 
@@ -192,6 +177,23 @@ void GameMap::generateCity(int cityX, int cityY, int cityW, int cityH)
 
 }
 
+sf::Sprite * GameMap::loadTileSprite(string fPath)
+{
+	sf::Sprite * sprite = ResourceManager::get()->loadSprite(fPath);
+
+	// sets the origin to center so they can be easily drawn
+	sf::FloatRect spriteBounds = sprite->getGlobalBounds();
+	sprite->setOrigin(spriteBounds.width / 2.0, spriteBounds.height / 2.0);
+
+	Vector2f origin = App::getRenderCoords(Vector2f(0, 0));
+	Vector2f end = App::getRenderCoords(Vector2f(App::getScale(), App::getScale()));
+
+	// sets the size
+	sprite->setScale(ceil(end.y / spriteBounds.height), ceil(end.y / spriteBounds.height));
+
+	return sprite;
+}
+
 void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY, int scale)
 {
 
@@ -244,9 +246,9 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 			sf::Sprite sprite;
 
 			if (mapData[x][y] == terrain::Road) {
-				sprite = roadSprite;
+				sprite = *roadSprite;
 			} else {
-				sprite = testSprite;
+				sprite = *testSprite;
 			}
 			sprite.setPosition(middle);
 			window->draw(sprite);

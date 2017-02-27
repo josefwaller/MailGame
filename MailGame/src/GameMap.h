@@ -4,6 +4,9 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 
+using namespace std;
+using namespace sf;
+
 class GameMap
 {
 public:
@@ -16,13 +19,11 @@ public:
 
 private:
 
-	sf::Texture testTexture;
-	sf::Sprite testSprite;
-
-	sf::Texture roadTexture;
-	sf::Sprite roadSprite;
+	sf::Sprite * testSprite;
+	sf::Sprite * roadSprite;
 
 	void generateCity(int x, int y, int w, int h);
+	sf::Sprite * loadTileSprite(string fPath);
 
 	enum class terrain;
 
