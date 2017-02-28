@@ -16,7 +16,7 @@ App::App(const int screenW, const int screenH, RenderWindow * gameWindow)
 
 	// both viewports show the whole map, but hudView scales
 	// it down to 20% of the screen width
-	gameView.reset(sf::FloatRect(0, 0, (float)W, (float)H));
+	gameView.reset(sf::FloatRect((mapS * App::getScale() - W) / 2, (mapS * App::getScale() - H) / 2, (float)W, (float)H));
 
 	// draws debug info
 	// ex: nodemap
@@ -27,7 +27,7 @@ App::App(const int screenW, const int screenH, RenderWindow * gameWindow)
 
 void App::init()
 {
-	m.init(200, 200, 0.2);
+	m.init(200, 200, App::mapS);
 }
 
 void App::update()
@@ -74,13 +74,15 @@ int App::getScale()
 
 sf::Vector2f App::getRenderCoords(sf::Vector2f worldCoords)
 {
-	// the angle to rotate things by
-	double theta = 3.14159 * 1 / 4.0;
 
 	// returns a new pair of X,Y coordinates
-	return sf::Vector2f(
+	sf::Vector2f rotatedCoords(
 		ceil(worldCoords.x  - worldCoords.y),
 		ceil(0.5 * (worldCoords.y + worldCoords.x)));
+
+	rotatedCoords.x += mapS * App::getScale();
+
+	return rotatedCoords;
 }
 
 void App::destroy()

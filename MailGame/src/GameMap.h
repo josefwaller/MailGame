@@ -11,7 +11,7 @@ class GameMap
 {
 public:
 	GameMap();
-	void init(const int W, const int H, double density);
+	void init(const int W, const int H, int mapSize);
 	void debugRender(sf::RenderWindow * window, int offX, int offY, int scale);
 
 	void renderRoads(sf::RenderWindow * window, int scale);

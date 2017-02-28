@@ -23,12 +23,12 @@ GameMap::GameMap()
 {
 }
 
-void GameMap::init(const int W, const int H, double density)
+void GameMap::init(const int W, const int H, int mapSize)
 {
 	srand((unsigned int)time(0));
 
 	// starts map with 100 by 100
-	mapData.assign(100, std::vector<terrain>(100, terrain::Empty));
+	mapData.assign(mapSize, std::vector<terrain>(mapSize, terrain::Empty));
 
 	// initializes the nodemap
 	roadMap = NodeMap();
@@ -262,7 +262,7 @@ void GameMap::updateMapGraphics()
 
 	}
 
-	float xOffset = textureW / 2 * scale;
+	float xOffset = 0;
 
 	for (size_t x = 0; x < mapData.size(); x++) {
 		for (size_t y = 0; y < mapData[x].size(); y++) {

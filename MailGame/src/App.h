@@ -37,6 +37,9 @@ private:
 	int W;
 	int H;
 
+	// the width/height of the map
+	static const int mapS = 50;
+
 	// the window the game exists in
 	sf::RenderWindow * window;
 
