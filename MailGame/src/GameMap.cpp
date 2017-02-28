@@ -41,6 +41,7 @@ void GameMap::init(const int W, const int H, double density)
 	testSprite = loadTileSprite("assets/sprites/test_tile.png");
 	roadSprite = loadTileSprite("assets/sprites/roads/road_base.png");
 
+	updateMapGraphics();
 }
 
 void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
@@ -246,8 +247,16 @@ void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY, int sca
 
 }
 
-void GameMap::renderRoads(sf::RenderWindow * window, int scale)
+void GameMap::updateMapGraphics()
 {
+
+	int scale = App::getScale();
+
+	sf::RenderTexture text;
+
+	if (!text.create(scale * mapData.size(), scale * mapData.size())) {
+
+	}
 
 	for (int x = 0; x < mapData.size(); x++) {
 		for (int y = 0; y < mapData[x].size(); y++) {
@@ -260,7 +269,7 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 
 			// draws the background spritre
 			testSprite.setPosition(middle);
-			window->draw(testSprite);
+			text.draw(testSprite);
 
 			// draws the sprite
 			sf::Sprite sprite;
@@ -268,7 +277,7 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 			if (mapData[x][y] == terrain::Road) {
 				sprite = roadSprite;
 				sprite.setPosition(middle);
-				window->draw(sprite);
+				text.draw(sprite);
 			}
 
 			// creates a new rectangle
@@ -279,7 +288,7 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 			middlePoint.setPosition(middle);
 
 			// draws the point
-			window->draw(middlePoint);
+			text.draw(middlePoint);
 
 		}
 	}
@@ -297,9 +306,9 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 		};
 
 		// draws the line
-		window->draw(line, 2, sf::Lines);
+		text.draw(line, 2, sf::Lines);
 	}
-	
+
 	for (int y = 0; y < mapData[0].size(); y++) {
 
 		Vector2f origin = App::getRenderCoords(Vector2f(0, y * scale));
@@ -310,7 +319,16 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 			sf::Vertex(endPoint)
 		};
 
-		window->draw(line, 2, sf::Lines);
+		text.draw(line, 2, sf::Lines);
 
 	}
+
+	mapTexture = text.getTexture();
+}
+
+void GameMap::renderRoads(sf::RenderWindow * window, int scale)
+{
+
+	Sprite s(mapTexture);
+	window->draw(s);
 }

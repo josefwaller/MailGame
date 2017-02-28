@@ -19,6 +19,10 @@ public:
 
 private:
 
+	sf::Texture mapTexture;
+
+	void updateMapGraphics();
+
 	sf::Sprite testSprite;
 	sf::Sprite roadSprite;
 
