@@ -47,7 +47,7 @@ private:
 	const float mouseThreshold = 0.2;
 
 	// the speed at which the screen pans
-	const int screenSpeed = 20;
+	const int screenSpeed = 200;
 
 	// the view of all game elements
 	sf::View gameView;

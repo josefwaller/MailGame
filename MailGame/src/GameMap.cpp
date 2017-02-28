@@ -254,18 +254,26 @@ void GameMap::updateMapGraphics()
 
 	sf::RenderTexture text;
 
-	if (!text.create(scale * mapData.size(), scale * mapData.size())) {
+	// gets the dimensions
+	int textureW = App::getRenderCoords(Vector2f(mapData.size(), 0)).x - App::getRenderCoords(Vector2f(0, mapData.size())).x;
+	int textureH = App::getRenderCoords(Vector2f(mapData.size(), mapData[0].size())).y - App::getRenderCoords(Vector2f(0, 0)).y;
+
+	if (!text.create(scale * textureW, scale * textureH)) {
 
 	}
 
-	for (int x = 0; x < mapData.size(); x++) {
-		for (int y = 0; y < mapData[x].size(); y++) {
+	float xOffset = textureW / 2 * scale;
+
+	for (size_t x = 0; x < mapData.size(); x++) {
+		for (size_t y = 0; y < mapData[x].size(); y++) {
 
 			// gets the middle point
 			Vector2f middle = App::getRenderCoords(Vector2f(
 				(x + 0.5) * scale,
 				(y + 0.5) * scale
 			));
+
+			middle.x += xOffset;
 
 			// draws the background spritre
 			testSprite.setPosition(middle);
@@ -294,11 +302,14 @@ void GameMap::updateMapGraphics()
 	}
 
 	// draws a debug grid
-	for (int x = 0; x < mapData.size(); x++) {
+	for (size_t x = 0; x < mapData.size(); x++) {
 
 		// gets the coordinates
 		Vector2f origin = App::getRenderCoords(Vector2f((float)(x * scale), 0));
 		Vector2f endPoint = App::getRenderCoords(Vector2f((float)(x * scale), (float)(mapData[0].size() * scale)));
+
+		origin.x += xOffset;
+		endPoint.x += xOffset;
 
 		sf::Vertex line[] = {
 			sf::Vertex(origin),
@@ -313,6 +324,9 @@ void GameMap::updateMapGraphics()
 
 		Vector2f origin = App::getRenderCoords(Vector2f(0, y * scale));
 		Vector2f endPoint = App::getRenderCoords(Vector2f(mapData[0].size() * scale, y * scale));
+
+		origin.x += xOffset;
+		endPoint.x += xOffset;
 
 		sf::Vertex line[] = {
 			sf::Vertex(origin),

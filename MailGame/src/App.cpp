@@ -37,6 +37,7 @@ void App::update()
 
 	sf::Vector2i mPos = sf::Mouse::getPosition(*window);
 
+	// moves the secreen left/right
 	if (mPos.x < W * mouseThreshold) {
 		gameView.move(-screenSpeed * dt.asSeconds(), 0);
 	}
@@ -44,6 +45,14 @@ void App::update()
 		
 		gameView.move(screenSpeed * dt.asSeconds(), 0);
 
+	}
+
+	// moves the screen up/down
+	if (mPos.y < H * mouseThreshold) {
+		gameView.move(0, -screenSpeed * dt.asSeconds());
+	}
+	else if (mPos.y > H - H * mouseThreshold) {
+		gameView.move(0, screenSpeed * dt.asSeconds());
 	}
 }
 
