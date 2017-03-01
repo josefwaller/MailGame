@@ -1,5 +1,8 @@
 {
 	"Base Road": {
+		"camera_res": {
+			"y": 32
+		},
 		"path" : "roads/road_base.png",
 		"pos": {
 			"x": 0,
@@ -8,6 +11,9 @@
 		}
 	},
 	"Road Extension" : {
+		"camera_res": {
+			"y": 32
+		},
 		"path_prefix": "roads/road_",
 		"paths": [
 			"top",
@@ -17,10 +23,10 @@
 		],
 		"rot": {
 			"z": [
-				45,
 				135,
+				315,
 				225,
-				315
+				45
 			]
 		}
 	},

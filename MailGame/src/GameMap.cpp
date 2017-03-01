@@ -336,7 +336,7 @@ void GameMap::updateMapGraphics()
 	}
 
 	// draws a debug grid
-	for (size_t x = 0; x < mapData.size(); x++) {
+	/*for (size_t x = 0; x < mapData.size(); x++) {
 
 		// gets the coordinates
 		Vector2f origin = App::getRenderCoords(Vector2f((float)(x * scale), 0));
@@ -369,7 +369,7 @@ void GameMap::updateMapGraphics()
 
 		text.draw(line, 2, sf::Lines);
 
-	}
+	}*/
 
 	mapTexture = text.getTexture();
 }
