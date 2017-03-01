@@ -1,0 +1,38 @@
+{
+	"Base Road": [
+		{
+			"path" : "roads/road_base.png",
+			"pos": {
+				"x": 0,
+				"y": 0,
+				"z": 0
+			}
+		}
+	],
+	"Road Extension" : [
+		{
+			"path" : "roads/road_left.png",
+			"rot": {
+				"z" : 45
+			}
+		},
+		{
+			"path": "roads/road_top.png",
+			"rot": {
+				"z": 135
+			}
+		},
+		{
+			"path": "roads/road_right.png",
+			"rot": {
+				"z": 225
+			}
+		},
+		{
+			"path": "roads/road_bot.png",
+			"rot": {
+				"z": 315
+			}
+		}
+	]
+}
