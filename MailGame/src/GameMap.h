@@ -24,7 +24,7 @@ private:
 	void updateMapGraphics();
 
 	sf::Sprite testSprite;
-	sf::Sprite roadSprite;
+	sf::Sprite roadSprites[5];
 
 	void generateCity(int x, int y, int l);
 	sf::Sprite loadTileSprite(string fPath);

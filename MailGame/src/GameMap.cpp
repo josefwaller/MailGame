@@ -38,8 +38,21 @@ void GameMap::init(const int W, const int H, int mapSize)
 
 	roadMap.addNodesAtIntersections();
 
-	testSprite = loadTileSprite("assets/sprites/test_tile.png");
-	roadSprite = loadTileSprite("assets/sprites/roads/road_base.png");
+	string path = "assets/sprites/";
+
+	testSprite = loadTileSprite(path + "test_tile.png");
+
+	string roadSpriteNames[5] = {
+		"base",
+		"top",
+		"left",
+		"bot",
+		"right"
+	};
+
+	for (int i = 0; i < 5; i++) {
+		roadSprites[i] = loadTileSprite("assets/sprites/roads/road_" + roadSpriteNames[i] + ".png");
+	}
 
 	updateMapGraphics();
 }
@@ -279,13 +292,34 @@ void GameMap::updateMapGraphics()
 			testSprite.setPosition(middle);
 			text.draw(testSprite);
 
-			// draws the sprite
-			sf::Sprite sprite;
-
+			// draws a road if there needs to be one
 			if (mapData[x][y] == terrain::Road) {
-				sprite = roadSprite;
-				sprite.setPosition(middle);
-				text.draw(sprite);
+
+				// a vector of the road sprites which need to be drawn
+				vector<Sprite> spritesToDraw;
+
+				// adds the base sprite
+				spritesToDraw.push_back(roadSprites[0]);
+
+				if (y > 0 && mapData[x][y - 1] == terrain::Road) {
+					spritesToDraw.push_back(roadSprites[4]);
+				}
+				if (y < mapData[x].size() - 1 && mapData[x][y + 1] == terrain::Road) {
+					spritesToDraw.push_back(roadSprites[2]);
+				}
+				if (x > 0 && mapData[x - 1][y] == terrain::Road) {
+					spritesToDraw.push_back(roadSprites[1]);
+				}
+				if (x < mapData.size() - 1 && mapData[x + 1][y] == terrain::Road) {
+					spritesToDraw.push_back(roadSprites[3]);
+				}
+
+				// actually draws all the sprites onto the texture
+				for (size_t i = 0; i < spritesToDraw.size(); i++) {
+
+					spritesToDraw[i].setPosition(middle);
+					text.draw(spritesToDraw[i]);
+				}
 			}
 
 			// creates a new rectangle
