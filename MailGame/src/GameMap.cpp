@@ -40,7 +40,7 @@ void GameMap::init(const int W, const int H, int mapSize)
 
 	string path = "assets/sprites/";
 
-	testSprite = loadTileSprite(path + "test_tile.png");
+	testSprite = loadTileSprite(path + "tile.png");
 
 	string roadSpriteNames[5] = {
 		"base",

@@ -25,9 +25,15 @@
 			"z": [
 				135,
 				315,
-				225,
+				225,	
 				45
 			]
+		}
+	},
+	"Base Ground": {
+		"path" : "tile",
+		"camera_res": {
+			"y": 32
 		}
 	},
 	"Truck": {
