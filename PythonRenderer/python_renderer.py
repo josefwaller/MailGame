@@ -28,6 +28,17 @@ class PythonRenderer:
 		return json.loads(file.read())
 		
 	def render_object(self, objectKey):
+	
+		# sets camera resolution
+		res = bpy.context.scene.render
+		if "camera_res" in self.data[objectKey]:	
+		
+			res.resolution_x = getIfExists(self.data[objectKey]['camera_res'], 'x', 64)		
+			res.resolution_y = getIfExists(self.data[objectKey]['camera_res'], 'y', 64)		
+			
+		else:
+			res.resolution_x = 64
+			res.resolution_y = 64
 		
 		objData = self.data[objectKey]
 		
@@ -47,7 +58,8 @@ class PythonRenderer:
 		
 			scale = getIfExists(objData, "scale", default)
 				
-			self.render_sprite(objectKey, pos, rot, scale, path)
+			self.setObjAttributes(objectKey, pos, rot, scale)
+			self.render_sprite(objectKey, path)
 			
 		elif "paths" in objData:
 		
@@ -68,10 +80,11 @@ class PythonRenderer:
 					scale[axis] = getAxisValue(objData, "scale", axis, i)
 					
 				print(pos)
-				self.render_sprite(objectKey, pos, rot, scale, path)
-		
-	def render_sprite(self, objectKey, pos, rot, scale, path):
-		
+				self.setObjAttributes(objectKey, pos, rot, scale)
+				self.render_sprite(objectKey, path)
+	
+	def setObjAttributes(self, objectKey, pos, rot, scale):
+	
 		object = bpy.data.objects[objectKey]
 		
 		# sets position
@@ -88,6 +101,10 @@ class PythonRenderer:
 			radians(rot['z'])))
 		
 		# sets scale
+		
+	def render_sprite(self, objectKey, path):
+		
+		object = bpy.data.objects[objectKey]
 		
 		# sets to render
 		object.hide_render = False
