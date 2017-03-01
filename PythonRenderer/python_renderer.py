@@ -29,47 +29,63 @@ class PythonRenderer:
 		
 	def render_object(self, objectKey):
 		
-		for i in range(len(self.data[objectKey])):
-			self.render_sprite(objectKey, i)
+		objData = self.data[objectKey]
 		
-	def render_sprite(self, objectKey, index):
+		default = {
+			"x": 0,
+			"y": 0,
+			"z": 0
+		}
+	
+		if "path" in objData:
+		
+			path = self.data[objectKey]['path']
+		
+			pos = getIfExists(objData, "pos", default)
+		
+			rot = getIfExists(objData, "rot", default)
+		
+			scale = getIfExists(objData, "scale", default)
+				
+			self.render_sprite(objectKey, pos, rot, scale, path)
+			
+		elif "paths" in objData:
+		
+			path_prefix = objData['path_prefix']
+		
+			for i in range(len(objData['paths'])):	
+				
+				path = path_prefix + objData['paths'][i]
+				
+				rot = default.copy()
+				pos = default.copy()
+				scale = default.copy()
+				
+				for axis in ["x", "y", "z"]:
+				
+					rot[axis] = getAxisValue(objData, "rot", axis, i)
+					pos[axis] = getAxisValue(objData, "pos", axis, i)
+					scale[axis] = getAxisValue(objData, "scale", axis, i)
+					
+				print(pos)
+				self.render_sprite(objectKey, pos, rot, scale, path)
+		
+	def render_sprite(self, objectKey, pos, rot, scale, path):
 		
 		object = bpy.data.objects[objectKey]
 		
-		objData = self.data[objectKey][index]
-		
 		# sets position
-		if "pos" in objData:
-			position = objData['pos']
-			object.location = Vector((
-				position['x'],
-				position['y'],
-				position['z']
-			))
-			
-		else:
-			object.location = Vector((0, 0, 0));
+		object.location = Vector((
+			pos['x'],
+			pos['y'],
+			pos['z']
+		))
 		
 		# sets rotation
-		if "rot" in objData:
-		
-			x = 0
-			y = 0
-			z = 0
-			
-			if "x" in objData['rot']:
-				x = objData['rot']['x']
-				
-			if "y" in objData['rot']:
-				y = objData['rot']['y']
-				
-			if "z" in objData['rot']:
-				z = objData['rot']['z']
-				
-			object.rotation_euler = Vector((
-				radians(x), 
-				radians(y),
-				radians(z)))
+		object.rotation_euler = Vector((
+			radians(rot['x']), 
+			radians(rot['y']),
+			radians(rot['z'])))
 		
 		# sets scale
 		
@@ -78,7 +94,7 @@ class PythonRenderer:
 		
 		# gets the path to render the image to
 		dirname = os.path.dirname
-		assets_path = dirname(dirname(__file__)) + "\\MailGame\\assets\\sprites\\" + objData["path"]
+		assets_path = dirname(dirname(__file__)) + "\\MailGame\\assets\\sprites\\" + path
 		print(assets_path)
 		
 		bpy.data.scenes["Scene"].render.filepath = assets_path
@@ -87,3 +103,19 @@ class PythonRenderer:
 		object.hide_render = True
 		
 		print(stat)
+		
+def getAxisValue (dict, key, axis, index):	
+				
+	if key in dict:
+		if axis in dict[key]:
+			return dict[key][axis][index]
+			
+	return 0
+		
+def getIfExists(dict, key, alt):
+	
+	if key in dict:
+		return dict[key]
+		
+	else:
+		return alt

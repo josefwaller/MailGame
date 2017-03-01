@@ -1,38 +1,46 @@
 {
-	"Base Road": [
-		{
-			"path" : "roads/road_base.png",
-			"pos": {
-				"x": 0,
-				"y": 0,
-				"z": 0
-			}
+	"Base Road": {
+		"path" : "roads/road_base.png",
+		"pos": {
+			"x": 0,
+			"y": 0,
+			"z": 0
 		}
-	],
-	"Road Extension" : [
-		{
-			"path" : "roads/road_left.png",
-			"rot": {
-				"z" : 45
-			}
-		},
-		{
-			"path": "roads/road_top.png",
-			"rot": {
-				"z": 135
-			}
-		},
-		{
-			"path": "roads/road_right.png",
-			"rot": {
-				"z": 225
-			}
-		},
-		{
-			"path": "roads/road_bot.png",
-			"rot": {
-				"z": 315
-			}
+	},
+	"Road Extension" : {
+		"path_prefix": "roads/road_",
+		"paths": [
+			"top",
+			"bot",
+			"left",
+			"right"
+		],
+		"rot": {
+			"z": [
+				45,
+				135,
+				225,
+				315
+			]
 		}
-	]
+	},
+	"Truck": {
+		"path_prefix": "truck/truck_",
+		"paths": [
+			"down",
+			"left_down",
+			"left",
+			"left_up",
+			"up"
+		],
+		"rot" : {
+			"z": [
+				90,
+				45,
+				0,
+				-45,
+				-90
+			]
+		}
+	}
 }
