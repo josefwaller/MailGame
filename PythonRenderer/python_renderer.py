@@ -12,23 +12,26 @@ class PythonRenderer:
 		# contains things like rotation, position, etc
 		self.data = self.read_data_file()
 		
-		print(self.data)
-		
 		# makes all objects unrenderable
 		for o in list(bpy.data.objects):
 			o.hide_render = True
-		
-		for o in self.data:
-			self.render_object(o)
 			
 	def read_data_file(self):
-		
-		file = open("model_data.json", "r")
+
+		file = open(os.path.dirname(bpy.data.filepath) + "\\model_data.json", "r")
 		
 		return json.loads(file.read())
+
+	def render_all(self):
+		for o in self.data:
+			self.render_object(o)
 		
 	def render_object(self, objectKey):
-	
+
+		if objectKey not in self.data:
+			print("%s is not in data!" % objectKey)
+			return
+
 		# sets camera resolution
 		res = bpy.context.scene.render
 		if "camera_res" in self.data[objectKey]:	
@@ -79,7 +82,6 @@ class PythonRenderer:
 					pos[axis] = getAxisValue(objData, "pos", axis, i)
 					scale[axis] = getAxisValue(objData, "scale", axis, i)
 					
-				print(pos)
 				self.setObjAttributes(objectKey, pos, rot, scale)
 				self.render_sprite(objectKey, path)
 	
@@ -111,7 +113,7 @@ class PythonRenderer:
 		
 		# gets the path to render the image to
 		dirname = os.path.dirname
-		assets_path = dirname(dirname(__file__)) + "\\MailGame\\assets\\sprites\\" + path
+		assets_path = dirname(dirname(bpy.data.filepath)) + "\\MailGame\\assets\\sprites\\" + path
 		print(assets_path)
 		
 		bpy.data.scenes["Scene"].render.filepath = assets_path
@@ -136,3 +138,35 @@ def getIfExists(dict, key, alt):
 		
 	else:
 		return alt
+
+if __name__ == "__main__":
+	p = PythonRenderer()
+
+	allObjs = []
+
+	while True:
+		print("EXIT - cancels")
+		print("RENDER - Renders all given objects")
+		print("UNDO - removes the last object entered")
+		print("ALL - Renders all objects and ends the session")
+		obj = input("Enter the object you want to enter, or a specail character: ")
+
+		if obj == "EXIT":
+			break
+
+		elif obj == "UNDO":
+			allObjs.pop(-1)
+
+		elif obj == "RENDER":
+			
+			for o in allObjs:
+				p.render_object(o)
+
+			break
+
+		elif obj == "ALL":
+			p.render_all()
+			break
+
+		else:
+			allObjs.append(obj)
