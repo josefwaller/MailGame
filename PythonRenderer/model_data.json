@@ -34,7 +34,8 @@
 		"path" : "tile",
 		"camera_res": {
 			"y": 32
-		}
+		},
+		"aa" : false
 	},
 	"Truck": {
 		"path_prefix": "truck/truck_",

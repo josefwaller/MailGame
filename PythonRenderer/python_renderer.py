@@ -31,6 +31,9 @@ class PythonRenderer:
 		if objectKey not in self.data:
 			print("%s is not in data!" % objectKey)
 			return
+		
+		# this object's data on how it should be rendered
+		objData = self.data[objectKey]
 
 		# sets camera resolution
 		res = bpy.context.scene.render
@@ -42,8 +45,9 @@ class PythonRenderer:
 		else:
 			res.resolution_x = 64
 			res.resolution_y = 64
-		
-		objData = self.data[objectKey]
+
+		# sets anti-aliasing
+		bpy.data.scenes["Scene"].render.use_antialiasing = getIfExists(objData, "aa", True)
 		
 		default = {
 			"x": 0,

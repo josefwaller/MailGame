@@ -275,6 +275,25 @@ void GameMap::updateMapGraphics()
 
 	}
 
+	// fills it initially with a green color to cover any holes'
+
+	// the color to fill it with
+	Color green(4, 53, 0);
+
+	// the size of each length
+	float l = (float)(mapData.size() * scale);
+
+	// the Vertex array to draw
+	Vertex cover[4] = {
+		Vertex(App::getRenderCoords({0, 0}), green),
+		Vertex(App::getRenderCoords({0, l}), green),
+		Vertex(App::getRenderCoords({l, l}), green),
+		Vertex(App::getRenderCoords({l, 0}), green)
+	};
+
+	// draws the vertex array
+	text.draw(cover, 4, Quads);
+
 	float xOffset = 0;
 
 	for (size_t x = 0; x < mapData.size(); x++) {
