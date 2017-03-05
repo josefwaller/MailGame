@@ -55,5 +55,22 @@
 				-90
 			]
 		}
+	},
+	"House 1": {
+		"path_prefix": "houses/house_1/house_1_",
+		"paths": [
+			"up",
+			"down",
+			"left",
+			"right"
+		],
+		"rot" : {
+			"z" : [
+				45,
+				135,
+				225,
+				315
+			]
+		}
 	}
 }
