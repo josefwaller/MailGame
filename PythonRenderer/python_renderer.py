@@ -32,8 +32,12 @@ class PythonRenderer:
 			print("%s is not in data!" % objectKey)
 			return
 		
-		# this object's data on how it should be rendered
+		# this object's data on how it should be rendered, taken frm the file
 		objData = self.data[objectKey]
+		
+		# an array of different setups for rendering the object
+		# each entry is a different sprite to be rendered
+		renderDatas = []
 
 		# sets camera resolution
 		res = bpy.context.scene.render
@@ -57,16 +61,14 @@ class PythonRenderer:
 	
 		if "path" in objData:
 		
-			path = self.data[objectKey]['path']
-		
-			pos = getIfExists(objData, "pos", default)
-		
-			rot = getIfExists(objData, "rot", default)
-		
-			scale = getIfExists(objData, "scale", default)
-				
-			self.setObjAttributes(objectKey, pos, rot, scale)
-			self.render_sprite(objectKey, path)
+			renderData = {
+				"path": self.data[objectKey]['path'],
+				"pos": getIfExists(objData, "pos", default),
+				"rot": getIfExists(objData, "rot", default),
+				"scale": getIfExists(objData, "scale", default)
+			}
+			
+			renderDatas.append(renderData)
 			
 		elif "paths" in objData:
 		
@@ -74,20 +76,30 @@ class PythonRenderer:
 		
 			for i in range(len(objData['paths'])):	
 				
-				path = path_prefix + objData['paths'][i]
-				
-				rot = default.copy()
-				pos = default.copy()
-				scale = default.copy()
+				renderData = {
+					"path": path_prefix + objData['paths'][i],
+					"rot": default.copy(),
+					"pos": default.copy(),
+					"scale": default.copy()
+				}
 				
 				for axis in ["x", "y", "z"]:
 				
-					rot[axis] = getAxisValue(objData, "rot", axis, i)
-					pos[axis] = getAxisValue(objData, "pos", axis, i)
-					scale[axis] = getAxisValue(objData, "scale", axis, i)
+					renderData["rot"][axis] = getAxisValue(objData, "rot", axis, i)
+					renderData["pos"][axis] = getAxisValue(objData, "pos", axis, i)
+					renderData["scale"][axis] = getAxisValue(objData, "scale", axis, i)
 					
-				self.setObjAttributes(objectKey, pos, rot, scale)
-				self.render_sprite(objectKey, path)
+				renderDatas.append(renderData)
+					
+		for renderData in renderDatas:
+		
+			self.setObjAttributes(objectKey,
+				renderData["pos"],
+				renderData["rot"],
+				renderData["scale"])
+				
+			self.render_sprite(objectKey, 
+				renderData["path"])
 	
 	def setObjAttributes(self, objectKey, pos, rot, scale):
 	
