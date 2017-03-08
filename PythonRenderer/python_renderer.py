@@ -65,7 +65,8 @@ class PythonRenderer:
 				"path": self.data[objectKey]['path'],
 				"pos": getIfExists(objData, "pos", default),
 				"rot": getIfExists(objData, "rot", default),
-				"scale": getIfExists(objData, "scale", default)
+				"scale": getIfExists(objData, "scale", default),
+				"texture": None
 			}
 			
 			renderDatas.append(renderData)
@@ -89,19 +90,35 @@ class PythonRenderer:
 					renderData["pos"][axis] = getAxisValue(objData, "pos", axis, i)
 					renderData["scale"][axis] = getAxisValue(objData, "scale", axis, i)
 					
-				renderDatas.append(renderData)
+				if "textures" in objData:
+				
+					for t in objData["textures"]:
+					
+						textureData = renderData.copy()
+						
+						textureData["texture"] = objData["texture_prefix"] + t
+						
+						textureData["path"] += "_" + t
+						
+						renderDatas.append(textureData)
+					
+				else:
+					renderData["texture"] = None
+					
+					renderDatas.append(renderData)
 					
 		for renderData in renderDatas:
 		
 			self.setObjAttributes(objectKey,
 				renderData["pos"],
 				renderData["rot"],
-				renderData["scale"])
+				renderData["scale"],
+				renderData["texture"])
 				
 			self.render_sprite(objectKey, 
 				renderData["path"])
 	
-	def setObjAttributes(self, objectKey, pos, rot, scale):
+	def setObjAttributes(self, objectKey, pos, rot, scale, texture=None):
 	
 		object = bpy.data.objects[objectKey]
 		
@@ -119,6 +136,20 @@ class PythonRenderer:
 			radians(rot['z'])))
 		
 		# sets scale
+		
+		# sets texture
+		if texture != None:
+		
+			# gets the material with a texture
+			for m in object.material_slots:
+				
+				if m.material.active_texture != None:
+				
+					i = bpy.data.images.load(
+						os.path.dirname(bpy.data.filepath) + 
+						"/textures/" + texture + ".png")
+					
+					m.material.active_texture.image = i
 		
 	def render_sprite(self, objectKey, path):
 		

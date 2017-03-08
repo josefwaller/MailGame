@@ -71,6 +71,15 @@
 				225,
 				315
 			]
-		}
+		},
+		"texture_prefix": "house 1/house_1_texture_",
+		"textures": [
+			"grey_red",
+			"grey_blue",
+			"grey_grey",
+			"white_blue",
+			"white_red",
+			"white_grey"
+		]
 	}
 }
