@@ -15,6 +15,6 @@ public:
 	virtual void update(Time dt) = 0;
 	virtual void render(RenderWindow * window);
 
-private:
+protected:
 	Sprite * s;
 };
