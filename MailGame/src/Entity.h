@@ -15,6 +15,9 @@ public:
 	// render must be initialized by the child class
 	virtual void render(RenderWindow * r) = 0;
 
+	// an enum of the possible directions an entity can face
+	public static enum direction;
+
 	Vector2f getPosition();
 
 protected:

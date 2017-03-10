@@ -11,3 +11,14 @@ Vector2f Entity::getPosition()
 {
 	return position;
 }
+
+enum Entity::direction {
+	Up,
+	UpLeft,
+	Left,
+	DownLeft,
+	Down,
+	DownRight,
+	Right,
+	UpRight
+};
