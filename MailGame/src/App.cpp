@@ -68,7 +68,7 @@ void App::render(sf::RenderWindow * window)
 
 	// gets the width and height of a tile so as to not clip the tiles right at the edge
 	float tileW = App::getRenderCoords({ 1, 0 }).x - App::getRenderCoords({ 0, 1 }).x;
-	float tileH = App::getRenderCoords({ 0, 0 }).x - App::getRenderCoords({ 1, 1 }).x;
+	float tileH = App::getRenderCoords({ 1, 1 }).y - App::getRenderCoords({ 0, 0 }).y;
 
 	FloatRect clipRect(origin.x - tileW, origin.y - tileH, endPoint.x - origin.x + 2 * tileW, endPoint.y - origin.y + 2 * tileH);
 
