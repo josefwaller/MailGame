@@ -57,6 +57,9 @@
 		}
 	},
 	"House 1": {
+		"camera_res" : {
+			"y": 42	
+		},
 		"path_prefix": "houses/house_1/house_1_",
 		"paths": [
 			"up",
