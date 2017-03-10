@@ -208,9 +208,37 @@ void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
 			}
 		}
 	}
+	// adds buildings
+	for (size_t x = 0; x < mapData.size(); x++) {
+		for (size_t y = 0; y < mapData[x].size(); y++) {
 
-	// adds a building
-	buildings.push_back(new House(Vector2f(2, 2)));
+			if (mapData[x][y] == terrain::Road) {
+
+				for (int xOff = -1; xOff <= 1; xOff++) {
+					for (int yOff = -1; yOff <= 1; yOff++) {
+
+						if (x + xOff < mapData.size() && y + yOff < mapData[x].size()) {
+
+
+							if (xOff != 0 || yOff != 0) {
+
+								if (mapData[x + xOff][y + yOff] == terrain::Empty) {
+
+									mapData[x + xOff][y + yOff] = terrain::House;
+									buildings.push_back(new House(Vector2f((float)(x + xOff), (float)(y + yOff))));
+
+								}
+
+							}
+						}
+
+					}
+				}
+
+			}
+
+		}
+	}
 }
 
 void GameMap::destroy()
@@ -276,17 +304,23 @@ void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY, int sca
 void GameMap::updateMapGraphics()
 {
 
-	int scale = App::getScale();
+	//mapTexture = text.getTexture();
+}
+
+void GameMap::renderRoads(sf::RenderWindow * window, int scale)
+{
+
+	scale = App::getScale();
 
 	sf::RenderTexture text;
 
 	// gets the dimensions
-	int textureW = App::getRenderCoords(Vector2f(mapData.size(), 0)).x - App::getRenderCoords(Vector2f(0, mapData.size())).x;
+	/*int textureW = App::getRenderCoords(Vector2f(mapData.size(), 0)).x - App::getRenderCoords(Vector2f(0, mapData.size())).x;
 	int textureH = App::getRenderCoords(Vector2f(mapData.size(), mapData[0].size())).y - App::getRenderCoords(Vector2f(0, 0)).y;
 
 	if (!text.create(textureW, textureH)) {
 
-	}
+	}*/
 
 	// fills it initially with a green color to cover any holes'
 
@@ -298,14 +332,14 @@ void GameMap::updateMapGraphics()
 
 	// the Vertex array to draw
 	Vertex cover[4] = {
-		Vertex(App::getRenderCoords({0, 0}), green),
-		Vertex(App::getRenderCoords({0, l}), green),
-		Vertex(App::getRenderCoords({l, l}), green),
-		Vertex(App::getRenderCoords({l, 0}), green)
+		Vertex(App::getRenderCoords({ 0, 0 }), green),
+		Vertex(App::getRenderCoords({ 0, l }), green),
+		Vertex(App::getRenderCoords({ l, l }), green),
+		Vertex(App::getRenderCoords({ l, 0 }), green)
 	};
 
 	// draws the vertex array
-	text.draw(cover, 4, Quads);
+	window->draw(cover, 4, Quads);
 
 	float xOffset = 0;
 
@@ -320,9 +354,9 @@ void GameMap::updateMapGraphics()
 
 			middle.x += xOffset;
 
-			// draws the background spritre
+			// draws the background sprite
 			testSprite.setPosition(middle);
-			text.draw(testSprite);
+			window->draw(testSprite);
 
 			// draws a road if there needs to be one
 			if (mapData[x][y] == terrain::Road) {
@@ -350,8 +384,16 @@ void GameMap::updateMapGraphics()
 				for (size_t i = 0; i < spritesToDraw.size(); i++) {
 
 					spritesToDraw[i].setPosition(middle);
-					text.draw(spritesToDraw[i]);
+					window->draw(spritesToDraw[i]);
 				}
+			}
+			else if (mapData[x][y] == terrain::House) {
+
+				RectangleShape r = RectangleShape(Vector2f(5, 5));
+				r.setFillColor(Color::Blue);
+				r.setPosition(middle);
+				window->draw(r);
+
 			}
 
 			// creates a new rectangle
@@ -362,7 +404,7 @@ void GameMap::updateMapGraphics()
 			middlePoint.setPosition(middle);
 
 			// draws the point
-			text.draw(middlePoint);
+			window->draw(middlePoint);
 
 		}
 	}
@@ -370,47 +412,38 @@ void GameMap::updateMapGraphics()
 	// draws a debug grid
 	/*for (size_t x = 0; x < mapData.size(); x++) {
 
-		// gets the coordinates
-		Vector2f origin = App::getRenderCoords(Vector2f((float)(x * scale), 0));
-		Vector2f endPoint = App::getRenderCoords(Vector2f((float)(x * scale), (float)(mapData[0].size() * scale)));
+	// gets the coordinates
+	Vector2f origin = App::getRenderCoords(Vector2f((float)(x * scale), 0));
+	Vector2f endPoint = App::getRenderCoords(Vector2f((float)(x * scale), (float)(mapData[0].size() * scale)));
 
-		origin.x += xOffset;
-		endPoint.x += xOffset;
+	origin.x += xOffset;
+	endPoint.x += xOffset;
 
-		sf::Vertex line[] = {
-			sf::Vertex(origin),
-			sf::Vertex(endPoint)
-		};
+	sf::Vertex line[] = {
+	sf::Vertex(origin),
+	sf::Vertex(endPoint)
+	};
 
-		// draws the line
-		text.draw(line, 2, sf::Lines);
+	// draws the line
+	text.draw(line, 2, sf::Lines);
 	}
 
 	for (int y = 0; y < mapData[0].size(); y++) {
 
-		Vector2f origin = App::getRenderCoords(Vector2f(0, y * scale));
-		Vector2f endPoint = App::getRenderCoords(Vector2f(mapData[0].size() * scale, y * scale));
+	Vector2f origin = App::getRenderCoords(Vector2f(0, y * scale));
+	Vector2f endPoint = App::getRenderCoords(Vector2f(mapData[0].size() * scale, y * scale));
 
-		origin.x += xOffset;
-		endPoint.x += xOffset;
+	origin.x += xOffset;
+	endPoint.x += xOffset;
 
-		sf::Vertex line[] = {
-			sf::Vertex(origin),
-			sf::Vertex(endPoint)
-		};
+	sf::Vertex line[] = {
+	sf::Vertex(origin),
+	sf::Vertex(endPoint)
+	};
 
-		text.draw(line, 2, sf::Lines);
+	text.draw(line, 2, sf::Lines);
 
 	}*/
-
-	mapTexture = text.getTexture();
-}
-
-void GameMap::renderRoads(sf::RenderWindow * window, int scale)
-{
-
-	Sprite s(mapTexture);
-	window->draw(s);
 }
 
 void GameMap::renderBuildings(RenderWindow * window)
