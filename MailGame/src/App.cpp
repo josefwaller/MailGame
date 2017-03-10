@@ -76,6 +76,9 @@ int App::getScale()
 sf::Vector2f App::getRenderCoords(sf::Vector2f worldCoords)
 {
 
+	worldCoords.x *= App::getScale();
+	worldCoords.y *= App::getScale();
+
 	// returns a new pair of X,Y coordinates
 	sf::Vector2f rotatedCoords(
 		ceil(worldCoords.x  - worldCoords.y),

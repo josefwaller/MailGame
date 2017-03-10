@@ -231,7 +231,7 @@ sf::Sprite GameMap::loadTileSprite(string fPath)
 	Vector2f origin = App::getRenderCoords(Vector2f(0, 0));
 	Vector2f end = App::getRenderCoords(Vector2f(1, 1));
 
-	float scale = (end.y - origin.y) * App::getScale() / spriteBounds.height;
+	float scale = (end.y - origin.y) / spriteBounds.height;
 	sprite.setScale(scale, scale);
 
 	return sprite;
@@ -284,7 +284,7 @@ void GameMap::updateMapGraphics()
 	int textureW = App::getRenderCoords(Vector2f(mapData.size(), 0)).x - App::getRenderCoords(Vector2f(0, mapData.size())).x;
 	int textureH = App::getRenderCoords(Vector2f(mapData.size(), mapData[0].size())).y - App::getRenderCoords(Vector2f(0, 0)).y;
 
-	if (!text.create(scale * textureW, scale * textureH)) {
+	if (!text.create(textureW, textureH)) {
 
 	}
 
@@ -294,7 +294,7 @@ void GameMap::updateMapGraphics()
 	Color green(4, 53, 0);
 
 	// the size of each length
-	float l = (float)(mapData.size() * scale);
+	float l = (float)(mapData.size());
 
 	// the Vertex array to draw
 	Vertex cover[4] = {
@@ -314,8 +314,8 @@ void GameMap::updateMapGraphics()
 
 			// gets the middle point
 			Vector2f middle = App::getRenderCoords(Vector2f(
-				(x + 0.5) * scale,
-				(y + 0.5) * scale
+				(x + 0.5),
+				(y + 0.5)
 			));
 
 			middle.x += xOffset;
