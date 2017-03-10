@@ -58,14 +58,25 @@ void App::update()
 
 void App::render(sf::RenderWindow * window)
 {
-
-	int scale = App::getScale();
+	// sets the view
 	window->setView(gameView);
-	m.renderRoads(window, scale);
-	m.renderBuildings(window);
+
+	// gets the bounding box of game elements to draw
+	// to speed up processing power
+	Vector2f origin = window->mapPixelToCoords({ 0, 0 });
+	Vector2f endPoint = window->mapPixelToCoords({ W, H });
+
+	// gets the width and height of a tile so as to not clip the tiles right at the edge
+	float tileW = App::getRenderCoords({ 1, 0 }).x - App::getRenderCoords({ 0, 1 }).x;
+	float tileH = App::getRenderCoords({ 0, 0 }).x - App::getRenderCoords({ 1, 1 }).x;
+
+	FloatRect clipRect(origin.x - tileW, origin.y - tileH, endPoint.x - origin.x + 2 * tileW, endPoint.y - origin.y + 2 * tileH);
+
+	m.renderRoads(window, clipRect);
+	m.renderBuildings(window, clipRect);
 
 	window->setView(hudView);
-	m.debugRender(window, 0, 0, scale);
+	m.debugRender(window, 0, 0);
 }
 
 int App::getScale()

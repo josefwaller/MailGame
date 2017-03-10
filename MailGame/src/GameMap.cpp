@@ -265,8 +265,10 @@ sf::Sprite GameMap::loadTileSprite(string fPath)
 	return sprite;
 }
 
-void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY, int scale)
+void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY)
 {
+
+	int scale = App::getScale();
 
 	for (size_t i = 0; i < roadMap.getConnections().size(); i++) {
 		
@@ -307,22 +309,12 @@ void GameMap::updateMapGraphics()
 	//mapTexture = text.getTexture();
 }
 
-void GameMap::renderRoads(sf::RenderWindow * window, int scale)
+void GameMap::renderRoads(sf::RenderWindow * window, FloatRect clipRect)
 {
 
-	scale = App::getScale();
+	int scale = App::getScale();
 
-	sf::RenderTexture text;
-
-	// gets the dimensions
-	/*int textureW = App::getRenderCoords(Vector2f(mapData.size(), 0)).x - App::getRenderCoords(Vector2f(0, mapData.size())).x;
-	int textureH = App::getRenderCoords(Vector2f(mapData.size(), mapData[0].size())).y - App::getRenderCoords(Vector2f(0, 0)).y;
-
-	if (!text.create(textureW, textureH)) {
-
-	}*/
-
-	// fills it initially with a green color to cover any holes'
+	// fills it initially with a green color to cover any holes
 
 	// the color to fill it with
 	Color green(4, 53, 0);
@@ -353,6 +345,10 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 			));
 
 			middle.x += xOffset;
+
+			if (!clipRect.contains(middle.x, middle.y)) {
+				continue;
+			}
 
 			// draws the background sprite
 			testSprite.setPosition(middle);
@@ -446,7 +442,7 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 	}*/
 }
 
-void GameMap::renderBuildings(RenderWindow * window)
+void GameMap::renderBuildings(RenderWindow * window, FloatRect clipRect)
 {
 
 	for (Building * b : buildings) {

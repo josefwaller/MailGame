@@ -15,10 +15,10 @@ public:
 	void init(const int W, const int H, int mapSize);
 	void destroy();
 
-	void debugRender(sf::RenderWindow * window, int offX, int offY, int scale);
+	void debugRender(sf::RenderWindow * window, int offX, int offY);
 
-	void renderRoads(sf::RenderWindow * window, int scale);
-	void renderBuildings(sf::RenderWindow * window);
+	void renderRoads(sf::RenderWindow * window, FloatRect clipRect);
+	void renderBuildings(sf::RenderWindow * window, FloatRect clipRect);
 
 private:
 
