@@ -446,7 +446,10 @@ void GameMap::renderBuildings(RenderWindow * window, FloatRect clipRect)
 {
 
 	for (Building * b : buildings) {
-		b->render(window);
+
+		if (clipRect.contains(App::getRenderCoords(b->getPosition()))) {
+			b->render(window);
+		}
 	}
 
 }
