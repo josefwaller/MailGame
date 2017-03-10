@@ -17,6 +17,6 @@ public:
 
 	Vector2f getPosition();
 
-private:
+protected:
 	Vector2f position;
 };

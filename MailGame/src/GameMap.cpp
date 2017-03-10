@@ -1,6 +1,7 @@
 #include "GameMap.h"
 #include "App.h"
 #include "ResourceManager.h"
+#include "House.h"
 
 #include "windows.h"
 #include <SFML/Graphics.hpp>
@@ -33,8 +34,10 @@ void GameMap::init(const int W, const int H, int mapSize)
 	// initializes the nodemap
 	roadMap = NodeMap();
 
+	// initializes buildings
+	buildings = {};
+
 	generateCity(11, 11, 10);
-	//generateCity(40, 40, 21, 20);
 
 	roadMap.addNodesAtIntersections();
 
@@ -193,6 +196,7 @@ void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
 
 	}
 
+	// adds the roads to mapData
 	for (road r : roads) {
 
 		for (int i = 0; i < r.l; i++) {
@@ -205,6 +209,15 @@ void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
 		}
 	}
 
+	// adds a building
+	buildings.push_back(new House(Vector2f(2, 2)));
+}
+
+void GameMap::destroy()
+{
+	for (auto b : buildings) {
+		delete b;
+	}
 }
 
 sf::Sprite GameMap::loadTileSprite(string fPath)
@@ -398,4 +411,13 @@ void GameMap::renderRoads(sf::RenderWindow * window, int scale)
 
 	Sprite s(mapTexture);
 	window->draw(s);
+}
+
+void GameMap::renderBuildings(RenderWindow * window)
+{
+
+	for (Building * b : buildings) {
+		b->render(window);
+	}
+
 }

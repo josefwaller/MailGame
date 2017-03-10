@@ -62,6 +62,7 @@ void App::render(sf::RenderWindow * window)
 	int scale = App::getScale();
 	window->setView(gameView);
 	m.renderRoads(window, scale);
+	m.renderBuildings(window);
 
 	window->setView(hudView);
 	m.debugRender(window, 0, 0, scale);
@@ -80,6 +81,7 @@ sf::Vector2f App::getRenderCoords(sf::Vector2f worldCoords)
 		ceil(worldCoords.x  - worldCoords.y),
 		ceil(0.5 * (worldCoords.y + worldCoords.x)));
 
+	// moves the coordinates over to not have negative x values
 	rotatedCoords.x += mapS * App::getScale();
 
 	return rotatedCoords;
@@ -87,5 +89,5 @@ sf::Vector2f App::getRenderCoords(sf::Vector2f worldCoords)
 
 void App::destroy()
 {
-
+	m.destroy();
 }

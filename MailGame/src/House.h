@@ -11,7 +11,7 @@ class House : public Building
 public:
 	House(Vector2f pos);
 	void update(Time dt);
-	void render(RenderWindow * window);
+	//void render(RenderWindow * window);
 
 private:
 	// variables used for timing letter generation
