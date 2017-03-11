@@ -22,6 +22,7 @@ House::House(Vector2f pos, Direction dir) : Building(pos, dir, "")
 			break;
 	}
 
+	// randomly determines the body color
 	string bodyColor = "";
 	
 	switch (rand() % 2) {
@@ -34,7 +35,28 @@ House::House(Vector2f pos, Direction dir) : Building(pos, dir, "")
 		break;
 	}
 
-	string spritePath = "assets/sprites/houses/house_1/house_1_right_" + bodyColor + "_" + roofColor + ".png";
+	// sets direction
+	string dirStr = "";
+
+	switch (dir) {
+	case Direction::Down:
+		dirStr = "down";
+		break;
+
+	case Direction::Up:
+		dirStr = "up";
+		break;
+
+	case Direction::Left:
+		dirStr = "left";
+		break;
+
+	case Direction::Right:
+		dirStr = "right";
+		break;
+	}
+
+	string spritePath = "assets/sprites/houses/house_1/house_1_" + dirStr + "_" + bodyColor + "_" + roofColor + ".png";
 
 	s = ResourceManager::get()->loadSprite(spritePath);
 

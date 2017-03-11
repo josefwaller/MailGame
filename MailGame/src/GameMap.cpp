@@ -270,19 +270,19 @@ void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
 
 								if (xOff == 0) {
 									if (yOff == 1) {
-										hDir = Entity::Direction::Down;
+										hDir = Entity::Direction::Up;
 									}
 									else {
-										hDir = Entity::Direction::Up;
+										hDir = Entity::Direction::Down;
 									}
 
 								}
 								else {
 									if (xOff == 1) {
-										hDir = Entity::Direction::Left;
+										hDir = Entity::Direction::Right;
 									}
 									else {
-										hDir = Entity::Direction::Right;
+										hDir = Entity::Direction::Left;
 									}
 								}
 
