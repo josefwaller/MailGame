@@ -54,8 +54,6 @@ void GameMap::init(const int W, const int H, int mapSize)
 	for (int i = 0; i < 5; i++) {
 		roadSprites[i] = loadTileSprite("assets/sprites/roads/road_" + roadSpriteNames[i] + ".png");
 	}
-
-	updateMapGraphics();
 }
 
 void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
@@ -259,7 +257,7 @@ void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
 						if ((xOff == 0 || yOff == 0) && xOff != yOff) {
 
 							// checks the position is not off the map
-							if (mapData.size() < x + xOff || mapData[0].size() < y + yOff) {
+							if (mapData.size() < (unsigned int) (x + xOff) || mapData[0].size() < (unsigned int) (y + yOff)) {
 								continue;
 							}
 
@@ -323,7 +321,9 @@ sf::Sprite GameMap::loadTileSprite(string fPath)
 
 	// sets the origin to center so they can be easily drawn
 	sf::FloatRect spriteBounds = sprite.getGlobalBounds();
-	sprite.setOrigin(0.5 * spriteBounds.width, 0.5 * spriteBounds.height);
+	sprite.setOrigin(
+		(float) (0.5 * spriteBounds.width), 
+		(float) (0.5 * spriteBounds.height));
 
 	Vector2f origin = App::getRenderCoords(Vector2f(0, 0));
 	Vector2f end = App::getRenderCoords(Vector2f(1, 1));
@@ -372,12 +372,6 @@ void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY)
 
 }
 
-void GameMap::updateMapGraphics()
-{
-
-	//mapTexture = text.getTexture();
-}
-
 void GameMap::renderRoads(sf::RenderWindow * window, FloatRect clipRect)
 {
 
@@ -409,8 +403,8 @@ void GameMap::renderRoads(sf::RenderWindow * window, FloatRect clipRect)
 
 			// gets the middle point
 			Vector2f middle = App::getRenderCoords(Vector2f(
-				(x + 0.5),
-				(y + 0.5)
+				(float) (x + 0.5),
+				(float) (y + 0.5)
 			));
 
 			middle.x += xOffset;

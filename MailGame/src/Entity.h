@@ -8,7 +8,7 @@ class Entity
 public:
 
 	// an enum of the possible directions an entity can face
-	static enum Direction {
+	enum Direction {
 		Up,
 		UpLeft,
 		Left,

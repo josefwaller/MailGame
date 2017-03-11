@@ -16,7 +16,11 @@ App::App(const int screenW, const int screenH, RenderWindow * gameWindow)
 
 	// both viewports show the whole map, but hudView scales
 	// it down to 20% of the screen width
-	gameView.reset(sf::FloatRect((mapS * App::getScale() - W) / 2, (mapS * App::getScale() - H) / 2, (float)W, (float)H));
+	gameView.reset(sf::FloatRect(
+		(mapS * App::getScale() - W) / 2.0f, 
+		(mapS * App::getScale() - H) / 2.0f, 
+		(float) W, 
+		(float) H));
 
 	// draws debug info
 	// ex: nodemap
@@ -92,8 +96,8 @@ sf::Vector2f App::getRenderCoords(sf::Vector2f worldCoords)
 
 	// returns a new pair of X,Y coordinates
 	sf::Vector2f rotatedCoords(
-		ceil(worldCoords.x  - worldCoords.y),
-		ceil(0.5 * (worldCoords.y + worldCoords.x)));
+		(float) ceil(worldCoords.x  - worldCoords.y),
+		(float) ceil(0.5 * (worldCoords.y + worldCoords.x)));
 
 	// moves the coordinates over to not have negative x values
 	rotatedCoords.x += mapS * App::getScale();

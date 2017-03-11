@@ -25,10 +25,6 @@ private:
 	// vector of buildings on the map
 	vector<Building *> buildings;
 
-	sf::Texture mapTexture;
-
-	void updateMapGraphics();
-
 	sf::Sprite testSprite;
 	sf::Sprite roadSprites[5];
 
