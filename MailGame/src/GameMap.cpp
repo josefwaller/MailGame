@@ -266,6 +266,11 @@ void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
 							// checks the terrain is empty
 							if (mapData[x + xOff][y + yOff] == terrain::Empty) {
 
+								// there is a 80% chance to just not add a house, to keep empty space
+								if (rand() % 100 < 80) {
+									continue;
+								}
+
 								Entity::Direction hDir;
 
 								if (xOff == 0) {
