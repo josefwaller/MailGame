@@ -9,7 +9,7 @@ using namespace sf;
 class Building: public Entity
 {
 public:
-	Building(Vector2f pos, string spritePath);
+	Building(Vector2f pos, Direction dir, string spritePath);
 	virtual ~Building() {};
 
 	virtual void update(Time dt) = 0;

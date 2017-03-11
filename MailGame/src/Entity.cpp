@@ -2,23 +2,13 @@
 
 #include "Entity.h"
 
-Entity::Entity(Vector2f startingPos)
+Entity::Entity(Vector2f startingPos, Direction dir)
 {
 	position = startingPos;
+	direction = dir;
 }
 
 Vector2f Entity::getPosition()
 {
 	return position;
 }
-
-enum Entity::direction {
-	Up,
-	UpLeft,
-	Left,
-	DownLeft,
-	Down,
-	DownRight,
-	Right,
-	UpRight
-};

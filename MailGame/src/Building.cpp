@@ -4,7 +4,7 @@
 #include "ResourceManager.h"
 #include "App.h"
 
-Building::Building(Vector2f startingPos, string spritePath = "") : Entity(startingPos)
+Building::Building(Vector2f startingPos, Direction dir, string spritePath = "") : Entity(startingPos, dir)
 {
 	// loads the sprite if it is known when the constructor is called
 	if (spritePath != "") {

@@ -2,7 +2,7 @@
 #include "ResourceManager.h"
 #include <ctime>
 
-House::House(Vector2f pos) : Building(pos, "")
+House::House(Vector2f pos, Direction dir) : Building(pos, dir, "")
 {
 
 	// randomly determines the roof color

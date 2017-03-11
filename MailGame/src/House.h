@@ -9,7 +9,7 @@ using namespace sf;
 class House : public Building
 {
 public:
-	House(Vector2f pos);
+	House(Vector2f pos, Direction dir);
 	void update(Time dt);
 	//void render(RenderWindow * window);
 

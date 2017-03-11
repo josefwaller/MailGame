@@ -266,8 +266,28 @@ void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
 							// checks the terrain is empty
 							if (mapData[x + xOff][y + yOff] == terrain::Empty) {
 
+								Entity::Direction hDir;
+
+								if (xOff == 0) {
+									if (yOff == 1) {
+										hDir = Entity::Direction::Down;
+									}
+									else {
+										hDir = Entity::Direction::Up;
+									}
+
+								}
+								else {
+									if (xOff == 1) {
+										hDir = Entity::Direction::Left;
+									}
+									else {
+										hDir = Entity::Direction::Right;
+									}
+								}
+
 								// places a house
-								buildings.push_back(new House(Vector2f((float)(x + xOff), (float)(y + yOff))));
+								buildings.push_back(new House(Vector2f((float)(x + xOff), (float)(y + yOff)), hDir));
 
 								// sets the terrain so that nothing else is build here
 								mapData[x + xOff][y + yOff] = terrain::House;
