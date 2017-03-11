@@ -39,8 +39,6 @@ void GameMap::init(const int W, const int H, int mapSize)
 
 	generateCity(11, 11, 10);
 
-	roadMap.addNodesAtIntersections();
-
 	string path = "assets/sprites/";
 
 	testSprite = loadTileSprite(path + "tile.png");
@@ -208,36 +206,82 @@ void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
 			}
 		}
 	}
-	// adds buildings
-	for (size_t x = 0; x < mapData.size(); x++) {
-		for (size_t y = 0; y < mapData[x].size(); y++) {
 
-			if (mapData[x][y] == terrain::Road) {
+	// adds nodes where two connections cross
+	roadMap.addNodesAtIntersections();
 
+	for (pair<int, int> connection : roadMap.getConnections()) {
+
+		// gets the two nodes
+		Vector2i nodeOne = roadMap.getNode(connection.first);
+		Vector2i nodeTwo = roadMap.getNode(connection.second);
+
+		// gets the range of x and y values that the road takes up
+		pair<int, int> xRange;
+		pair<int, int> yRange;
+
+		if (nodeOne.x == nodeTwo.x) {
+
+			// since these are the same, xRange will look like {x, x}
+			xRange = { nodeOne.x, nodeTwo.x };
+			
+			// sets the smaller y value to the first pair value
+			if (nodeOne.y > nodeTwo.y) {
+				yRange = { nodeTwo.y, nodeOne.y - 1};
+			}
+			else {
+				yRange = { nodeOne.y, nodeTwo.y - 1};
+			}
+		}
+		// does the same for vertical roads
+		else if (nodeOne.y == nodeTwo.y) {
+			yRange = { nodeOne.y, nodeTwo.y};
+
+			if (nodeOne.x > nodeTwo.x) {
+				xRange = { nodeTwo.x, nodeOne.x - 1};
+			}
+			else {
+				xRange = { nodeOne.x, nodeTwo.x - 1};
+			}
+
+		}
+
+		// cycles through each road's tiles
+		for (int x = xRange.first; x <= xRange.second; x++) {
+			for (int y = yRange.first; y <= yRange.second; y++) {
+
+				// sets an offset so that the houses are not on the road
 				for (int xOff = -1; xOff <= 1; xOff++) {
 					for (int yOff = -1; yOff <= 1; yOff++) {
 
-						if (x + xOff < mapData.size() && y + yOff < mapData[x].size()) {
+						// since the houses cannot be diagonally attached to the road,
+						// we can only place a house where only one offset is 0
+						if ((xOff == 0 || yOff == 0) && xOff != yOff) {
 
+							// checks the position is not off the map
+							if (mapData.size() < x + xOff || mapData[0].size() < y + yOff) {
+								continue;
+							}
 
-							if (xOff != 0 || yOff != 0) {
+							// checks the terrain is empty
+							if (mapData[x + xOff][y + yOff] == terrain::Empty) {
 
-								if (mapData[x + xOff][y + yOff] == terrain::Empty) {
+								// places a house
+								buildings.push_back(new House(Vector2f((float)(x + xOff), (float)(y + yOff))));
 
-									mapData[x + xOff][y + yOff] = terrain::House;
-									buildings.push_back(new House(Vector2f((float)(x + xOff), (float)(y + yOff))));
-
-								}
+								// sets the terrain so that nothing else is build here
+								mapData[x + xOff][y + yOff] = terrain::House;
 
 							}
+
 						}
 
 					}
 				}
 
 			}
-
 		}
+
 	}
 }
 
