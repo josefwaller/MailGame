@@ -446,14 +446,6 @@ void GameMap::renderRoads(sf::RenderWindow * window, FloatRect clipRect)
 					window->draw(spritesToDraw[i]);
 				}
 			}
-			else if (mapData[x][y] == terrain::House) {
-
-				RectangleShape r = RectangleShape(Vector2f(5, 5));
-				r.setFillColor(Color::Blue);
-				r.setPosition(middle);
-				window->draw(r);
-
-			}
 
 			// creates a new rectangle
 			sf::RectangleShape middlePoint(sf::Vector2f(1, 1));
