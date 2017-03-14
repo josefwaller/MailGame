@@ -57,15 +57,12 @@
 		}
 	},
 	"House 1": {
-		"camera_res" : {
-			"y": 42	
-		},
 		"path_prefix": "houses/house_1/house_1_",
 		"paths": [
 			"up",
+			"right",
 			"down",
-			"left",
-			"right"
+			"left"
 		],
 		"rot" : {
 			"z" : [
@@ -86,15 +83,12 @@
 		]
 	},
 	"House 2" : {
-		"camera_res" :{
-			"y" : 32
-		},
 		"path_prefix": "houses/house_2/house_2_",
 		"paths": [
 			"up",
+			"right",
 			"down",
-			"left",
-			"right"
+			"left"
 		],
 		"rot" : {
 			"z" : [
