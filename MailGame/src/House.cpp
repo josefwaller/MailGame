@@ -5,35 +5,29 @@
 House::House(Vector2f pos, Direction dir) : Building(pos, dir, "")
 {
 
+	// the different models of houses
+	vector<string> models = { "house_1", "house_2" };
+
+	// the different roof colors for each model
+	map<string, vector<string>> roofColors = {
+		{"house_1",  {"blue", "red", "grey"}},
+		{"house_2", {"blue", "red", "black", "purple"}}
+	};
+
+	// the different body colors for each model
+	map<string, vector<string>> bodyColors = {
+		{"house_1", {"white", "grey"}},
+		{"house_2", {"white", "grey", "cream"}}
+	};
+
+	// randomly determines the model
+	string model = models[rand() % models.size()];
+
 	// randomly determines the roof color
-	string roofColor = "";
-
-	switch (rand() % 3) {
-		case 0:
-			roofColor = "grey";
-			break;
-
-		case 1:
-			roofColor = "red";
-			break;
-
-		case 2:
-			roofColor = "blue";
-			break;
-	}
+	string roofColor = roofColors[model][rand() % roofColors[model].size()];
 
 	// randomly determines the body color
-	string bodyColor = "";
-	
-	switch (rand() % 2) {
-	case 0:
-		bodyColor = "grey";
-		break;
-
-	case 1:
-		bodyColor = "white";
-		break;
-	}
+	string bodyColor = bodyColors[model][rand() % bodyColors[model].size()];
 
 	// sets direction
 	string dirStr = "";
@@ -56,7 +50,7 @@ House::House(Vector2f pos, Direction dir) : Building(pos, dir, "")
 		break;
 	}
 
-	string spritePath = "assets/sprites/houses/house_1/house_1_" + dirStr + "_" + bodyColor + "_" + roofColor + ".png";
+	string spritePath = "assets/sprites/houses/" + model + "/" + model + "_" + dirStr + "_" + bodyColor + "_" + roofColor + ".png";
 
 	s = ResourceManager::get()->loadSprite(spritePath);
 
