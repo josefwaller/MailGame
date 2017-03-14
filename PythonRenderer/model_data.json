@@ -84,5 +84,40 @@
 			"white_red",
 			"white_grey"
 		]
+	},
+	"House 2" : {
+		"camera_res" :{
+			"y" : 32
+		},
+		"path_prefix": "houses/house_2/house_2_",
+		"paths": [
+			"up",
+			"down",
+			"left",
+			"right"
+		],
+		"rot" : {
+			"z" : [
+				45,
+				135,
+				225,
+				315
+			]
+		},
+		"texture_prefix" : "house 2/house_2_texture_",
+		"textures": [
+			"grey_red",
+			"grey_blue",
+			"grey_black",
+			"grey_purple",
+			"white_blue",
+			"white_red",
+			"white_black",
+			"white_purple",
+			"cream_blue",
+			"cream_red",
+			"cream_black",
+			"cream_purple"
+		]
 	}
 }
