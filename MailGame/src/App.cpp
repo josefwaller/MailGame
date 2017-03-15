@@ -8,6 +8,8 @@ App::App(const int screenW, const int screenH, RenderWindow * gameWindow)
 	W = screenW;
 	H = screenH;
 
+	hud = Hud(this);
+
 	// starts deltaTime
 	deltaClock.restart();
 
@@ -108,4 +110,13 @@ sf::Vector2f App::getRenderCoords(sf::Vector2f worldCoords)
 void App::destroy()
 {
 	m.destroy();
+}
+
+// get/set methods
+int App::getW() {
+	return W;
+}
+
+int App::getH() {
+	return H;
 }

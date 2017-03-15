@@ -23,6 +23,7 @@
     <ClCompile Include="src\Building.cpp" />
     <ClCompile Include="src\Entity.cpp" />
     <ClCompile Include="src\House.cpp" />
+    <ClCompile Include="src\Hud.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\GameMap.cpp" />
     <ClCompile Include="src\NodeMap.cpp" />
@@ -34,6 +35,7 @@
     <ClInclude Include="src\Entity.h" />
     <ClInclude Include="src\GameMap.h" />
     <ClInclude Include="src\House.h" />
+    <ClInclude Include="src\Hud.h" />
     <ClInclude Include="src\NodeMap.h" />
     <ClInclude Include="src\ResourceManager.h" />
   </ItemGroup>

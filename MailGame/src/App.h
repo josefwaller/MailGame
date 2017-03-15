@@ -3,6 +3,8 @@
 #include "GameMap.h"
 #include "windows.h"
 
+#include "Hud.h"
+
 #include <SFML/Graphics.hpp>
 
 class App
@@ -17,6 +19,10 @@ public:
 	static int getScale();
 
 	static sf::Vector2f getRenderCoords(sf::Vector2f worldCoords);
+
+	// get and set methods
+	int getW();
+	int getH();
 
 	// used for logging
 
@@ -36,6 +42,10 @@ private:
 	// the dimensions of the window
 	int W;
 	int H;
+
+	// The HUD element
+	// manages Heads Up Display
+	Hud hud;
 
 	// the width/height of the map
 	static const int mapS = 50;
