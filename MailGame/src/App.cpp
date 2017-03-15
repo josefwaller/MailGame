@@ -30,8 +30,8 @@ App::App(const int screenW, const int screenH, RenderWindow * gameWindow)
 
 	// draws debug info
 	// ex: nodemap
-	hudView.reset(FloatRect(0, 0, (float) W, (float) H));
-	hudView.setViewport(FloatRect(0, 0, 0.2f, 0.2f));
+	debugView.reset(FloatRect(0, 0, (float) W, (float) H));
+	debugView.setViewport(FloatRect(0, 0, 0.2f, 0.2f));
 
 }
 
@@ -83,7 +83,7 @@ void App::update()
 	gameView.move(disMoved[0], disMoved[1]);
 
 	// moves the debug map
-	hudView.move(disMoved[0], disMoved[1]);
+	debugView.move(disMoved[0], disMoved[1]);
 }
 
 void App::render(sf::RenderWindow * window)
@@ -115,7 +115,7 @@ void App::render(sf::RenderWindow * window)
 	m.renderBuildings(window, clipRect);
 
 	// draws the debug map
-	window->setView(hudView);
+	window->setView(debugView);
 	m.debugRender(window, clipRect);
 	
 }
@@ -126,7 +126,7 @@ int App::getScale()
 }
 
 // converts world coords to render coords
-sf::Vector2f App::getRenderCoords(sf::Vector2f worldCoords)
+sf::Vector2f App::getRenderCoords(Vector2f worldCoords)
 {
 
 	// scales up by App::getScale()
@@ -134,7 +134,7 @@ sf::Vector2f App::getRenderCoords(sf::Vector2f worldCoords)
 	worldCoords.y *= App::getScale();
 
 	// creates a new pair of X, Y coordinates
-	sf::Vector2f rotatedCoords(
+	Vector2f rotatedCoords(
 		(float) ceil(worldCoords.x  - worldCoords.y),
 		(float) ceil(0.5 * (worldCoords.y + worldCoords.x)));
 

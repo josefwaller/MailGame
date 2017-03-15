@@ -10,7 +10,7 @@
 class App
 {
 public:
-	App(const int W, const int H, sf::RenderWindow * gameWindow);
+	App(const int W, const int H, RenderWindow * gameWindow);
 
 	// initializes the app
 	void init();
@@ -19,7 +19,7 @@ public:
 	void update();
 
 	// renders the app
-	void render(sf::RenderWindow * window);
+	void render(RenderWindow * window);
 	
 	// destroys the app
 	void destroy();
@@ -28,7 +28,7 @@ public:
 	static int getScale();
 
 	// converts game coords into window coords
-	static sf::Vector2f getRenderCoords(sf::Vector2f worldCoords);
+	static sf::Vector2f getRenderCoords(Vector2f worldCoords);
 
 	// get and set methods
 	int getW();
@@ -51,10 +51,10 @@ private:
 	static const int mapS = 50;
 
 	// the window the game exists in
-	sf::RenderWindow * window;
+	RenderWindow * window;
 
 	// clock used for recording deltaTime
-	sf::Clock deltaClock;
+	Clock deltaClock;
 
 	// how close the mouse can get to the edge of the screen without the screen panning
 	const float mouseThreshold = 0.2f;
@@ -63,8 +63,11 @@ private:
 	const int screenSpeed = 200;
 
 	// the view of all game elements
-	sf::View gameView;
+	View gameView;
+
+	// the debug view for drawing debugging information
+	View debugView;
 
 	// the hud view
-	sf::View hudView;
+	View hudView;
 };
