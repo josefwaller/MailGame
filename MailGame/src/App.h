@@ -11,28 +11,28 @@ class App
 {
 public:
 	App(const int W, const int H, sf::RenderWindow * gameWindow);
+
+	// initializes the app
 	void init();
+
+	// updates the app
 	void update();
+
+	// renders the app
 	void render(sf::RenderWindow * window);
+	
+	// destroys the app
 	void destroy();
 
+	// scales the entities to an appropriate size
 	static int getScale();
 
+	// converts game coords into window coords
 	static sf::Vector2f getRenderCoords(sf::Vector2f worldCoords);
 
 	// get and set methods
 	int getW();
 	int getH();
-
-	// used for logging
-
-	template<class T>
-	static void logToConsole(T val, std::string before = "", std::string after = "")
-	{
-		std::ostringstream os;
-		os << before << val << after << std::endl;
-		OutputDebugStringA(os.str().c_str());
-	}
 
 private:
 
