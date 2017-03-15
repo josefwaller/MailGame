@@ -20,7 +20,7 @@ App::App(const int screenW, const int screenH, RenderWindow * gameWindow)
 	// saves the window
 	window = gameWindow;
 
-	// both viewports show the whole map, but hudView scales
+	// both viewports show the whole map, but dubView scales
 	// it down to 20% of the screen width
 	gameView.reset(sf::FloatRect(
 		0, 
@@ -32,6 +32,11 @@ App::App(const int screenW, const int screenH, RenderWindow * gameWindow)
 	// ex: nodemap
 	debugView.reset(FloatRect(0, 0, (float) W, (float) H));
 	debugView.setViewport(FloatRect(0, 0, 0.2f, 0.2f));
+
+	// hudView has a width and height of 100
+	// so positionin in the HUD is done in percentage
+	hudView.reset(FloatRect(0, 0, 100.0f, 100.0f));
+	hudView.setViewport(FloatRect(0, 0, 1.0f, 1.0f));
 
 }
 
@@ -113,6 +118,10 @@ void App::render(sf::RenderWindow * window)
 
 	// draws the buildings
 	m.renderBuildings(window, clipRect);
+
+	// draws the HUD
+	window->setView(hudView);
+	hud.render(window);
 
 	// draws the debug map
 	window->setView(debugView);
