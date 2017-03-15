@@ -310,6 +310,7 @@ void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
 
 void GameMap::destroy()
 {
+	// destroys all the buildings
 	for (auto b : buildings) {
 		delete b;
 	}
@@ -337,35 +338,46 @@ sf::Sprite GameMap::loadTileSprite(string fPath)
 void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY)
 {
 
-	int scale = App::getScale();
-
 	for (size_t i = 0; i < roadMap.getConnections().size(); i++) {
 		
+		// gets the 2 nodes to draw a line inbetween
 		Vector2i nodeOne = roadMap.getNode(roadMap.getConnections()[i].first);
 		Vector2i nodeTwo = roadMap.getNode(roadMap.getConnections()[i].second);
 
-		nodeOne.x *= scale;
-		nodeTwo.x *= scale;
-		nodeOne.y *= scale;
-		nodeTwo.y *= scale;
+		// gets the render coordsinates for these nodes
+		Vector2f renderNodeOne = App::getRenderCoords((Vector2f) nodeOne);
+		Vector2f renderNodeTwo = App::getRenderCoords((Vector2f) nodeTwo);
 
+		// creates a line inbetween the render coodinates
 		sf::Vertex line[] = {
-			sf::Vertex((sf::Vector2f)nodeOne),
-			sf::Vertex((sf::Vector2f)nodeTwo)
+			sf::Vertex((sf::Vector2f)renderNodeOne),
+			sf::Vertex((sf::Vector2f)renderNodeTwo)
 		};
-
+		 // draws the line
 		window->draw(line, 2, sf::Lines);
 
 	}
 
 	for (size_t i = 0; i < roadMap.getNodes().size(); i++) {
 
+		// gets the node
 		Vector2i node = roadMap.getNode((int)i);
 
-		sf::CircleShape circ((float) (scale * 0.5));
-		circ.setPosition((float)((node.x - 0.5) * scale), (float)((node.y - 0.5) * scale));
+		// gets the render position for the node
+		Vector2f renderNode = App::getRenderCoords((Vector2f)node);
+
+		// creates a circle to draw at the node
+		sf::CircleShape circ((float) (App::getScale() * 0.5));
+
+		circ.setOrigin(circ.getRadius() / 2.0f, circ.getRadius() / 2.0f);
+
+		// sets the position
+		circ.setPosition(renderNode.x, renderNode.y);
+
+		// sets color
 		circ.setFillColor(sf::Color(255, 0, 0, 200));
 
+		// draws the circle
 		window->draw(circ);
 
 	}
@@ -374,8 +386,6 @@ void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY)
 
 void GameMap::renderRoads(sf::RenderWindow * window, FloatRect clipRect)
 {
-
-	int scale = App::getScale();
 
 	// fills it initially with a green color to cover any holes
 
@@ -459,42 +469,6 @@ void GameMap::renderRoads(sf::RenderWindow * window, FloatRect clipRect)
 
 		}
 	}
-
-	// draws a debug grid
-	/*for (size_t x = 0; x < mapData.size(); x++) {
-
-	// gets the coordinates
-	Vector2f origin = App::getRenderCoords(Vector2f((float)(x * scale), 0));
-	Vector2f endPoint = App::getRenderCoords(Vector2f((float)(x * scale), (float)(mapData[0].size() * scale)));
-
-	origin.x += xOffset;
-	endPoint.x += xOffset;
-
-	sf::Vertex line[] = {
-	sf::Vertex(origin),
-	sf::Vertex(endPoint)
-	};
-
-	// draws the line
-	text.draw(line, 2, sf::Lines);
-	}
-
-	for (int y = 0; y < mapData[0].size(); y++) {
-
-	Vector2f origin = App::getRenderCoords(Vector2f(0, y * scale));
-	Vector2f endPoint = App::getRenderCoords(Vector2f(mapData[0].size() * scale, y * scale));
-
-	origin.x += xOffset;
-	endPoint.x += xOffset;
-
-	sf::Vertex line[] = {
-	sf::Vertex(origin),
-	sf::Vertex(endPoint)
-	};
-
-	text.draw(line, 2, sf::Lines);
-
-	}*/
 }
 
 void GameMap::renderBuildings(RenderWindow * window, FloatRect clipRect)
