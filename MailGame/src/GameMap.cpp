@@ -335,8 +335,48 @@ sf::Sprite GameMap::loadTileSprite(string fPath)
 	return sprite;
 }
 
-void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY)
+void GameMap::debugRender(sf::RenderWindow * window, FloatRect clipRect)
 {
+	// draws a grid of the terrain behind the nodemap
+	for (size_t x = 0; x < mapData.size(); x++) {
+		for (size_t y = 0; y < mapData[x].size(); y++) {
+
+			Vector2f renderCoords = App::getRenderCoords({ (float)x, (float)y });
+
+			if (clipRect.contains(renderCoords)) {
+
+				Color tileColor;
+
+				// sets the color depending on the tile type
+				switch (mapData[x][y]) {
+
+				case terrain::Empty:
+					tileColor = Color(0, 124, 6);
+					break;
+
+				case terrain::Road:
+					tileColor = Color(79, 79, 79);
+					break;
+
+				case terrain::House:
+					tileColor = Color(155, 0, 0);
+					break;
+
+				}
+
+				// the 4 points around the tile
+				Vertex points[] = {
+					Vertex(renderCoords, tileColor),
+					Vertex(App::getRenderCoords({ (float)x, (float)(y + 1) }), tileColor),
+					Vertex(App::getRenderCoords({ (float)(x + 1), (float)(y + 1) }), tileColor),
+					Vertex(App::getRenderCoords({ (float)(x + 1), (float)y }), tileColor)
+				};
+
+				window->draw(points, 4, Quads);
+			}
+
+		}
+	}
 
 	for (size_t i = 0; i < roadMap.getConnections().size(); i++) {
 		
@@ -349,12 +389,12 @@ void GameMap::debugRender(sf::RenderWindow * window, int offX, int offY)
 		Vector2f renderNodeTwo = App::getRenderCoords((Vector2f) nodeTwo);
 
 		// creates a line inbetween the render coodinates
-		sf::Vertex line[] = {
-			sf::Vertex((sf::Vector2f)renderNodeOne),
-			sf::Vertex((sf::Vector2f)renderNodeTwo)
+		Vertex line[] = {
+			Vertex((Vector2f)renderNodeOne),
+			Vertex((Vector2f)renderNodeTwo)
 		};
 		 // draws the line
-		window->draw(line, 2, sf::Lines);
+		window->draw(line, 2, Lines);
 
 	}
 

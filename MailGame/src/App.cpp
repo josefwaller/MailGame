@@ -116,7 +116,7 @@ void App::render(sf::RenderWindow * window)
 
 	// draws the debug map
 	window->setView(hudView);
-	m.debugRender(window, 0, 0);
+	m.debugRender(window, clipRect);
 	
 }
 

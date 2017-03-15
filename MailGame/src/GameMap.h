@@ -15,7 +15,7 @@ public:
 	void init(const int W, const int H, int mapSize);
 	void destroy();
 
-	void debugRender(sf::RenderWindow * window, int offX, int offY);
+	void debugRender(sf::RenderWindow * window, FloatRect clipRect);
 
 	void renderRoads(sf::RenderWindow * window, FloatRect clipRect);
 	void renderBuildings(sf::RenderWindow * window, FloatRect clipRect);
