@@ -33,9 +33,8 @@ App::App(const int screenW, const int screenH, RenderWindow * gameWindow)
 	debugView.reset(FloatRect(0, 0, (float) W, (float) H));
 	debugView.setViewport(FloatRect(0, 0, 0.2f, 0.2f));
 
-	// hudView has a width and height of 100
-	// so positionin in the HUD is done in percentage
-	hudView.reset(FloatRect(0, 0, 100.0f, 100.0f));
+	// sets up HUD view
+	hudView.reset(FloatRect(0, 0, (float)W, (float)H));
 	hudView.setViewport(FloatRect(0, 0, 1.0f, 1.0f));
 
 }
@@ -85,10 +84,10 @@ void App::update()
 	}
 
 	// moves the gamemap
-	gameView.move(disMoved[0], disMoved[1]);
+	gameView.move((float) disMoved[0], (float) disMoved[1]);
 
 	// moves the debug map
-	debugView.move(disMoved[0], disMoved[1]);
+	debugView.move((float) disMoved[0], (float) disMoved[1]);
 }
 
 void App::render(sf::RenderWindow * window)

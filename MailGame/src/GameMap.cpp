@@ -498,8 +498,8 @@ void GameMap::renderRoads(sf::RenderWindow * window, FloatRect clipRect)
 			}
 
 			// creates a new rectangle
-			sf::RectangleShape middlePoint(sf::Vector2f(1, 1));
-			middlePoint.setFillColor(sf::Color::Red);
+			RectangleShape middlePoint(Vector2f(1, 1));
+			middlePoint.setFillColor(Color::Red);
 
 			// sets the rect's position
 			middlePoint.setPosition(middle);
