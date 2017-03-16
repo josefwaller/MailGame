@@ -31,7 +31,7 @@ App::App(const int screenW, const int screenH, RenderWindow * gameWindow)
 	// draws debug info
 	// ex: nodemap
 	debugView.reset(FloatRect(0, 0, (float) W, (float) H));
-	debugView.setViewport(FloatRect(0, 0, 0.2f, 0.2f));
+	debugView.setViewport(FloatRect(0, 0.1f, 0.2f, 0.2f));
 
 	// sets up HUD view
 	hudView.reset(FloatRect(0, 0, (float)W, (float)H));
