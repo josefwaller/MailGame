@@ -38,6 +38,7 @@
     <ClInclude Include="src\Hud.h" />
     <ClInclude Include="src\NodeMap.h" />
     <ClInclude Include="src\ResourceManager.h" />
+    <ClInclude Include="UiElement.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DF29DD38-E199-4D8E-B1FB-CFD4CAC20113}</ProjectGuid>

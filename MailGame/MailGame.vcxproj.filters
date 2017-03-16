@@ -68,5 +68,8 @@
     <ClInclude Include="src\Hud.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="UiElement.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
