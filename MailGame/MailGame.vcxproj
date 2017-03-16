@@ -28,6 +28,7 @@
     <ClCompile Include="src\GameMap.cpp" />
     <ClCompile Include="src\NodeMap.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
+    <ClCompile Include="src\UiElement.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\App.h" />
@@ -38,7 +39,7 @@
     <ClInclude Include="src\Hud.h" />
     <ClInclude Include="src\NodeMap.h" />
     <ClInclude Include="src\ResourceManager.h" />
-    <ClInclude Include="UiElement.h" />
+    <ClInclude Include="src\UiElement.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{DF29DD38-E199-4D8E-B1FB-CFD4CAC20113}</ProjectGuid>
