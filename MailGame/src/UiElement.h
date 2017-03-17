@@ -12,10 +12,10 @@ public:
 
 	virtual void onEvent(Event e) = 0;
 
-	virtual void render(RenderWindow * window) = 0;
+	virtual void render(RenderWindow * window);
 
 
-private:
+protected:
 	int x;
 	int y;
 	int w;

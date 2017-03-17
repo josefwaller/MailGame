@@ -12,12 +12,21 @@ Hud::Hud(App * app)
 
 	ascryClrOne = Color(255, 210, 155);
 	ascryClrTwo = Color(168, 93, 1);
+
+	buttons = {
+		UiButton(0, 0, 40, 40, "ASDF", mainColor)
+	};
 }
 
 void Hud::render(RenderWindow * window)
 {
 	// draws the top bar
 	drawBorderedRect(window, { 0, 0, (float) app->getW(), 20.0 });
+
+	// draws the buttons
+	for (UiButton b : buttons) {
+		b.render(window);
+	}
 }
 
 void Hud::drawBorderedRect(RenderWindow * window, FloatRect r) 

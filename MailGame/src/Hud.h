@@ -1,6 +1,7 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
+#include "UiButton.h"
 
 // forward declaration of App
 class App;
@@ -14,6 +15,8 @@ class Hud
 public:
 	Hud();
 	Hud(App * app);
+
+	vector<UiButton> buttons;
 
 	void render(RenderWindow * window);
 

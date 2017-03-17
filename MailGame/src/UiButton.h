@@ -10,8 +10,9 @@ using namespace sf;
 class UiButton : public UiElement
 {
 public:
-	UiButton(int x, int y, int w, int h, string text);
+	UiButton(int x, int y, int w, int h, string text, Color baseColor);
 
+	void onEvent(Event e);
 	void render(RenderWindow * window) override;
 
 	// get/set methods
@@ -22,4 +23,7 @@ private:
 
 	// the text to draw on the button
 	string text;
+
+	// the color of the button
+	Color color;
 };
