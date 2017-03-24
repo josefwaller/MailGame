@@ -14,8 +14,8 @@ public:
 	// these are the colors that will actually be used
 	// may be overridden in a child class
 	const Color * mainColor;
-	const Color * colorOne;
-	const Color * colorTwo;
+	const Color * lightColor;
+	const Color * darkColor;
 
 	UiBlock(int x, int y, int w, int h);
 

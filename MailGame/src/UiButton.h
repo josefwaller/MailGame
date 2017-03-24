@@ -10,6 +10,11 @@ using namespace sf;
 class UiButton : public UiBlock
 {
 public:
+
+	static const Color btnMainColor;
+	static const Color btnLightColor;
+	static const Color btnDarkColor;
+
 	UiButton(int x, int y, int w, int h, string text);
 
 	void onEvent(Event e);
