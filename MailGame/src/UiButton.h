@@ -23,4 +23,7 @@ private:
 
 	// the text to draw on the button
 	string text;
+
+	// the bounds the button takes
+	FloatRect bounds;
 };

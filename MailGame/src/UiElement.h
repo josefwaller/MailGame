@@ -30,5 +30,5 @@ protected:
 	int w;
 	int h;
 
-	void drawBorderedRect(FloatRect r);
+	void drawBorderedRect(FloatRect r, RenderWindow * window);
 };
