@@ -2,14 +2,14 @@
 
 // sets up colors
 const Color UiBlock::blockMainColor = Color(255, 165, 56);
-const Color UiBlock::blockColorOne = Color(255, 210, 155);
-const Color UiBlock::blockColorTwo = Color(168, 93, 1);
+const Color UiBlock::blockLightColor = Color(255, 210, 155);
+const Color UiBlock::blockDarkColor = Color(168, 93, 1);
 
 UiBlock::UiBlock(int x, int y, int w, int h) : UiElement(x, y, w, h)
 {
 	mainColor = &blockMainColor;
-	colorOne = &blockColorOne;
-	colorTwo = &blockColorTwo;
+	colorOne = &blockLightColor;
+	colorTwo = &blockDarkColor;
 }
 
 void UiBlock::render(RenderWindow * window)

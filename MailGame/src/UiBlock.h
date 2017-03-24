@@ -8,8 +8,8 @@ public:
 
 	// these are the colors used for an UiBlock
 	static const Color blockMainColor;
-	static const Color blockColorOne;
-	static const Color blockColorTwo;
+	static const Color blockLightColor;
+	static const Color blockDarkColor;
 
 	// these are the colors that will actually be used
 	// may be overridden in a child class
