@@ -5,10 +5,18 @@
 class UiBlock : public UiElement
 {
 public:
+
+	// sets colors
+	static const Color mainColor;
+
+	static const Color colorOne;
+	static const Color colorTwo;
+
 	UiBlock(int x, int y, int w, int h);
 
 	void render(RenderWindow * window);
 
-private:
-	FloatRect shape;
+protected:
+
+	void drawBorderedRect(FloatRect r, RenderWindow * window);
 };
