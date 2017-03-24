@@ -6,11 +6,16 @@ class UiBlock : public UiElement
 {
 public:
 
-	// sets colors
-	static const Color mainColor;
+	// these are the colors used for an UiBlock
+	static const Color blockMainColor;
+	static const Color blockColorOne;
+	static const Color blockColorTwo;
 
-	static const Color colorOne;
-	static const Color colorTwo;
+	// these are the colors that will actually be used
+	// may be overridden in a child class
+	const Color * mainColor;
+	const Color * colorOne;
+	const Color * colorTwo;
 
 	UiBlock(int x, int y, int w, int h);
 
