@@ -8,6 +8,15 @@ using namespace sf;
 class UiElement
 {
 public:
+
+	static const int five = 5;
+
+	// sets colors
+	static const Color mainColor;
+
+	static const Color colorOne;
+	static const Color colorTwo;
+
 	UiElement(int x, int y, int w, int h);
 
 	virtual void onEvent(Event e) = 0;
@@ -21,4 +30,5 @@ protected:
 	int w;
 	int h;
 
+	void drawBorderedRect(FloatRect r);
 };

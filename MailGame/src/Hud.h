@@ -24,12 +24,4 @@ private:
 
 	// the app the HUD belongs to
 	App * app;
-
-	Color mainColor;
-
-	// accessory Colors
-	Color ascryClrOne;
-	Color ascryClrTwo;
-
-	void drawBorderedRect(RenderWindow * window, FloatRect r);
 };
