@@ -1,5 +1,5 @@
 #pragma once
-#include "UiElement.h"
+#include "UiBlock.h"
 
 #include "SFML/Graphics.hpp"
 
@@ -7,7 +7,7 @@ using namespace std;
 using namespace sf;
 
 // a button on the UI
-class UiButton : public UiElement
+class UiButton : public UiBlock
 {
 public:
 	UiButton(int x, int y, int w, int h, string text);
