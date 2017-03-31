@@ -8,7 +8,7 @@ Hud::Hud(App * app)
 	this->app = app;
 
 	buttons = {
-		UiButton(10, 10, 20, 20, "ASDF")
+		UiButton(10, 10, 20, 20, "ASDF", this)
 	};
 }
 

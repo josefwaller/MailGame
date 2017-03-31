@@ -5,7 +5,7 @@ const Color UiBlock::blockMainColor = Color(255, 165, 56);
 const Color UiBlock::blockLightColor = Color(255, 210, 155);
 const Color UiBlock::blockDarkColor = Color(168, 93, 1);
 
-UiBlock::UiBlock(int x, int y, int w, int h) : UiElement(x, y, w, h)
+UiBlock::UiBlock(int x, int y, int w, int h, Hud * hud) : UiElement(x, y, w, h, hud)
 {
 	mainColor = &blockMainColor;
 	lightColor = &blockLightColor;

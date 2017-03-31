@@ -17,7 +17,7 @@ public:
 	const Color * lightColor;
 	const Color * darkColor;
 
-	UiBlock(int x, int y, int w, int h);
+	UiBlock(int x, int y, int w, int h, Hud * hud);
 
 	void render(RenderWindow * window);
 

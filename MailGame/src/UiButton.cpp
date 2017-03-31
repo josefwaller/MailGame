@@ -4,7 +4,7 @@ const Color UiButton::btnMainColor(127, 127, 127);
 const Color UiButton::btnLightColor(255, 255, 255);
 const Color UiButton::btnDarkColor(0, 0, 0);
 
-UiButton::UiButton(int x, int y, int w, int h, string text) : UiBlock(x, y, w, h)
+UiButton::UiButton(int x, int y, int w, int h, string text, Hud * hud) : UiBlock(x, y, w, h, hud)
 {
 	// sets text
 	this->text = text;
@@ -16,6 +16,10 @@ UiButton::UiButton(int x, int y, int w, int h, string text) : UiBlock(x, y, w, h
 	mainColor = &btnMainColor;
 	lightColor = &btnLightColor;
 	darkColor = &btnDarkColor;
+}
+
+void UiButton::update()
+{
 }
 
 void UiButton::onEvent(Event e)

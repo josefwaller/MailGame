@@ -15,9 +15,10 @@ public:
 	static const Color btnLightColor;
 	static const Color btnDarkColor;
 
-	UiButton(int x, int y, int w, int h, string text);
+	UiButton(int x, int y, int w, int h, string text, Hud * hud);
 
 	void onEvent(Event e);
+	void update();
 	void render(RenderWindow * window) override;
 
 	// get/set methods
