@@ -10,7 +10,7 @@
 class App
 {
 public:
-	App(const int W, const int H, RenderWindow * gameWindow, sfg::Desktop * desktop);
+	App(const int W, const int H, RenderWindow * gameWindow);
 
 	// initializes the app
 	void init();

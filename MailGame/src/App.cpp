@@ -1,7 +1,7 @@
 #include "App.h"
 #include "windows.h"
 
-App::App(const int screenW, const int screenH, RenderWindow * gameWindow, sfg::Desktop * desktop)
+App::App(const int screenW, const int screenH, RenderWindow * gameWindow)
 {
 
 	// sets width and height
@@ -9,7 +9,7 @@ App::App(const int screenW, const int screenH, RenderWindow * gameWindow, sfg::D
 	H = screenH;
 
 	// creates HUD
-	hud = Hud(this, desktop);
+	hud = Hud(this);
 
 	// creates map
 	m = GameMap();

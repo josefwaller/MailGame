@@ -1,7 +1,5 @@
 #pragma once
 
-#include <SFGUI/Widgets.hpp>
-
 #include "SFML/Graphics.hpp"
 
 // forward declaration of App
@@ -15,9 +13,7 @@ class Hud
 
 public:
 	Hud();
-	Hud(App * app, sfg::Desktop * d);
-
-	sfg::Window::Ptr toolbar;
+	Hud(App * app);
 
 	void render(RenderWindow * window);
 
