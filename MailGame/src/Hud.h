@@ -1,7 +1,6 @@
 #pragma once
 
 #include "SFML/Graphics.hpp"
-#include "UiButton.h"
 
 // forward declaration of App
 class App;
@@ -22,10 +21,4 @@ private:
 
 	// the app the HUD belongs to
 	App * app;
-
-	// a vector of the buttons
-	vector<UiButton> buttons;
-
-	// the UiElement of the top bar
-	//UiElement topBar;
 };

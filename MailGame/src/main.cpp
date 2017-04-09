@@ -1,3 +1,6 @@
+
+#include <SFGUI/SFGUI.hpp>
+#include <SFGUI/Widget.hpp>
 #include <SFML/Graphics.hpp>
 #include "App.h"
 #include "windows.h"
@@ -12,7 +15,10 @@ int main()
 
 	// creates a new window
 	sf::RenderWindow window(sf::VideoMode(W, H), "Mail Game");
+	window.resetGLStates();
 
+	// initializes sfgui
+	sfg::SFGUI sfgui;
 	App app = App(W, H, &window);
 
 	// initializes the game
