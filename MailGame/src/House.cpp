@@ -17,7 +17,7 @@ House::House(Vector2f pos, Direction dir) : Building(pos, dir, "")
 	// the different body colors for each model
 	map<string, vector<string>> bodyColors = {
 		{"house_1", {"white", "grey"}},
-		{"house_2", {"white", "grey", "cream"}}
+		{"house_2", {"white", "grey"}}
 	};
 
 	// randomly determines the model
