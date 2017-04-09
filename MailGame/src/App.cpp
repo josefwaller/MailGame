@@ -1,7 +1,7 @@
 #include "App.h"
 #include "windows.h"
 
-App::App(const int screenW, const int screenH, RenderWindow * gameWindow)
+App::App(const int screenW, const int screenH, RenderWindow * gameWindow, sfg::Desktop * desktop)
 {
 
 	// sets width and height
@@ -9,13 +9,10 @@ App::App(const int screenW, const int screenH, RenderWindow * gameWindow)
 	H = screenH;
 
 	// creates HUD
-	hud = Hud(this);
+	hud = Hud(this, desktop);
 
 	// creates map
 	m = GameMap();
-
-	// starts deltaTime
-	deltaClock.restart();
 
 	// saves the window
 	window = gameWindow;
@@ -35,7 +32,6 @@ App::App(const int screenW, const int screenH, RenderWindow * gameWindow)
 
 	// sets up HUD view
 	hudView.reset(FloatRect(0, 0, (float)W, (float)H));
-	hudView.setViewport(FloatRect(0, 0, 1.0f, 1.0f));
 
 }
 
@@ -46,11 +42,8 @@ void App::init()
 	m.init(200, 200, App::mapS);
 }
 
-void App::update()
+void App::update(sf::Time dt)
 {
-
-	// gets the delta time
-	sf::Time dt = deltaClock.restart();
 
 	// gets the mouse position to move the screen left or right
 	sf::Vector2i mPos = sf::Mouse::getPosition(*window);
@@ -118,13 +111,13 @@ void App::render(sf::RenderWindow * window)
 	// draws the buildings
 	m.renderBuildings(window, clipRect);
 
-	// draws the HUD
-	window->setView(hudView);
-	hud.render(window);
-
 	// draws the debug map
 	window->setView(debugView);
 	m.debugRender(window, clipRect);
+
+	// draws the HUD
+	window->setView(gameView);
+	hud.render(window);
 	
 }
 

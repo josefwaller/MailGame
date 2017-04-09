@@ -10,13 +10,13 @@
 class App
 {
 public:
-	App(const int W, const int H, RenderWindow * gameWindow);
+	App(const int W, const int H, RenderWindow * gameWindow, sfg::Desktop * desktop);
 
 	// initializes the app
 	void init();
 
 	// updates the app
-	void update();
+	void update(sf::Time dt);
 
 	// renders the app
 	void render(RenderWindow * window);
@@ -52,9 +52,6 @@ private:
 
 	// the window the game exists in
 	RenderWindow * window;
-
-	// clock used for recording deltaTime
-	Clock deltaClock;
 
 	// how close the mouse can get to the edge of the screen without the screen panning
 	const float mouseThreshold = 0.2f;
