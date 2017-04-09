@@ -6,11 +6,12 @@
 #include "Hud.h"
 
 #include <SFML/Graphics.hpp>
+#include <TGUI/TGUI.hpp>
 
 class App
 {
 public:
-	App(const int W, const int H, RenderWindow * gameWindow);
+	App(const int W, const int H, RenderWindow * gameWindow, tgui::Gui * gui);
 
 	// initializes the app
 	void init();
@@ -34,6 +35,8 @@ public:
 	int getW();
 	int getH();
 
+	tgui::Gui * getGui();
+
 private:
 
 	// the game map
@@ -52,6 +55,9 @@ private:
 
 	// the window the game exists in
 	RenderWindow * window;
+
+	// The GUI for the game
+	tgui::Gui * gui;
 
 	// how close the mouse can get to the edge of the screen without the screen panning
 	const float mouseThreshold = 0.2f;

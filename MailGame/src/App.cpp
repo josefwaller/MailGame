@@ -1,7 +1,7 @@
 #include "App.h"
 #include "windows.h"
 
-App::App(const int screenW, const int screenH, RenderWindow * gameWindow)
+App::App(const int screenW, const int screenH, RenderWindow * gameWindow, tgui::Gui * gui)
 {
 
 	// sets width and height
@@ -14,8 +14,9 @@ App::App(const int screenW, const int screenH, RenderWindow * gameWindow)
 	// creates map
 	m = GameMap();
 
-	// saves the window
+	// saves the window and gui
 	window = gameWindow;
+	gui = gui;
 
 	// both viewports show the whole map, but dubView scales
 	// it down to 20% of the screen width
@@ -160,4 +161,8 @@ int App::getW() {
 
 int App::getH() {
 	return H;
+}
+
+tgui::Gui * App::getGui() {
+	return this->gui;
 }

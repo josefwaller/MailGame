@@ -1,4 +1,5 @@
 #include <SFML/Graphics.hpp>
+#include <TGUI/TGUI.hpp>
 
 #include "App.h"
 #include "windows.h"
@@ -13,10 +14,12 @@ int main()
 
 	// creates a new window
 	sf::RenderWindow window(sf::VideoMode(W, H), "Mail Game");
-	window.resetGLStates();
+
+	// creates the GUI for the window
+	tgui::Gui gui { window };
 
 	// creates app
-	App app = App(W, H, &window);
+	App app = App(W, H, &window, &gui);
 
 	// initializes the game
 	app.init();
@@ -40,6 +43,9 @@ int main()
 			// closes if the exit button is pressed
 			if (event.type == sf::Event::Closed)
 				window.close();
+
+			// checks for the GUI to handle the event
+			gui.handleEvent(event);
 		}
 
 		// updates everything
@@ -48,17 +54,11 @@ int main()
 		// clears the window
 		window.clear();
 
-		// updates SFGUI
+		// draws gui
+		gui.draw();
 
-		window.setView(window.getDefaultView());
-
-		// draws new stuff
-		// first saves opengl state so that the gui is not distorted 
-		window.pushGLStates();
+		// draws stuff
 		app.render(&window);
-
-		// restores original opengl state for gui
-		window.popGLStates();
 
 		// updates the window
 		window.display();
