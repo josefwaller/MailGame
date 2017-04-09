@@ -54,11 +54,11 @@ int main()
 		// clears the window
 		window.clear();
 
-		// draws gui
-		gui.draw();
-
 		// draws stuff
 		app.render(&window);
+
+		// draws gui
+		gui.draw();
 
 		// updates the window
 		window.display();

@@ -1,6 +1,7 @@
 #pragma once
 
-#include "SFML/Graphics.hpp"
+#include <SFML/Graphics.hpp>
+#include <TGUI/TGUI.hpp>
 
 // forward declaration of App
 class App;
@@ -21,4 +22,6 @@ private:
 
 	// the app the HUD belongs to
 	App * app;
+
+	tgui::Widget::Ptr button;
 };

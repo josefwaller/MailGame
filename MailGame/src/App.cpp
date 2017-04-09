@@ -8,15 +8,15 @@ App::App(const int screenW, const int screenH, RenderWindow * gameWindow, tgui::
 	W = screenW;
 	H = screenH;
 
+	// saves the window and gui
+	window = gameWindow;
+	this->gui = gui;
+
 	// creates HUD
 	hud = Hud(this);
 
 	// creates map
 	m = GameMap();
-
-	// saves the window and gui
-	window = gameWindow;
-	gui = gui;
 
 	// both viewports show the whole map, but dubView scales
 	// it down to 20% of the screen width
