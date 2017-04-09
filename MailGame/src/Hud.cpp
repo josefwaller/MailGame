@@ -1,3 +1,5 @@
+#include <SFGUI/Widget.hpp>
+
 #include "Hud.h"
 #include "App.h"
 
