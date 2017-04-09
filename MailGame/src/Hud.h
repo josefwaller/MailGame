@@ -23,5 +23,6 @@ private:
 	// the app the HUD belongs to
 	App * app;
 
-	tgui::Widget::Ptr button;
+	// the toolbar of stuff to do
+	tgui::ChildWindow::Ptr toolbar;
 };
