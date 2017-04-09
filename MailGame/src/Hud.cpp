@@ -1,5 +1,6 @@
 #include "Hud.h"
 #include "App.h"
+#include <iostream>
 
 using namespace tgui;
 
@@ -10,25 +11,21 @@ Hud::Hud(App * app)
 	this->app = app;
 
 	// creates toolbar
-	this->toolbar = ChildWindow::create();
+	this->toolbar = MenuBar::create();
 	this->toolbar->setSize(app->getW(), 20);
+	this->toolbar->connect("MenuItemClicked", [&](vector<sf::String> s) { cout << (string)s[0] << " -> " << (string)s[1] << "\n";});
 
-	// creates the layout for the buttons
-	HorizontalLayout::Ptr layout = HorizontalLayout::create();
-	layout->setSize(bindWidth(this->toolbar) / 3, 20);
-	this->toolbar->add(layout);
+	// adds file menu
+	this->toolbar->addMenu("File");
+	this->toolbar->addMenuItem("Load");
+	this->toolbar->addMenuItem("Save");
+	this->toolbar->addMenuItem("Exit");
 
-	// creates file button
-	Button::Ptr fileButton = Button::create();
-	fileButton->setSize(bindSize(this->toolbar) / 2);
-	fileButton->setText("File");
-	layout->add(fileButton);
-
-	// creates build button
-	Button::Ptr buildButton = Button::create();
-	buildButton->setSize(bindSize(this->toolbar) / 2);
-	buildButton->setText("Build");
-	layout->add(buildButton);
+	// adds build menu
+	this->toolbar->addMenu("Build");
+	this->toolbar->addMenuItem("Post Office");
+	this->toolbar->addMenuItem("Mailbox");
+	this->toolbar->addMenuItem("Dinosaur");
 
 	// creates button
 	this->app->getGui()->add(toolbar);

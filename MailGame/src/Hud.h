@@ -24,5 +24,5 @@ private:
 	App * app;
 
 	// the toolbar of stuff to do
-	tgui::ChildWindow::Ptr toolbar;
+	tgui::MenuBar::Ptr toolbar;
 };
