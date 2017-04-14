@@ -60,9 +60,6 @@ private:
 	// The GUI for the game
 	tgui::Gui * gui;
 
-	// how close the mouse can get to the edge of the screen without the screen panning
-	const float mouseThreshold = 0.2f;
-
 	// the speed at which the screen pans
 	const int screenSpeed = 200;
 
@@ -74,4 +71,7 @@ private:
 
 	// the hud view
 	View hudView;
+
+	// moves the view when the mouse is at the edges
+	void moveView(Time dt);
 };

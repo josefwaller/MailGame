@@ -51,42 +51,49 @@ void App::update(sf::Time dt)
 	// updates the buildings
 	m.updateBuildings(dt);
 
+	// moves the view
+	moveView(dt);
+}
+
+void App::moveView(Time dt) {
+
+
 	// gets the mouse position to move the screen left or right
 	sf::Vector2i mPos = sf::Mouse::getPosition(*window);
 
 	// the distance the move the camera in the x or y coordinate
-	double disMoved[2] = { 0.0, 0.0 };
+	float disMoved[2] = { 0.0, 0.0 };
 
 	// moves the secreen left/right
-	if (mPos.x < W * mouseThreshold) {
+	if (Keyboard::isKeyPressed(Keyboard::Left)) {
 
 		// moves the screen left
 		disMoved[0] = -1 * screenSpeed * dt.asSeconds();
 	}
-	else if (mPos.x > W - W * mouseThreshold) {
-		
+	else if (Keyboard::isKeyPressed(Keyboard::Right)) {
+
 		// moves the screen right
 		disMoved[0] = screenSpeed * dt.asSeconds();
 
 	}
 
 	// moves the screen up/down
-	if (mPos.y < H * mouseThreshold) {
-		
+	if (Keyboard::isKeyPressed(Keyboard::Up)) {
+
 		// moves the screen up
 		disMoved[1] = -1 * screenSpeed * dt.asSeconds();
 	}
-	else if (mPos.y > H - H * mouseThreshold) {
-		
+	else if (Keyboard::isKeyPressed(Keyboard::Down)) {
+
 		// moves the screen down
 		disMoved[1] = screenSpeed * dt.asSeconds();
 	}
 
 	// moves the gamemap
-	gameView.move((float) disMoved[0], (float) disMoved[1]);
+	gameView.move(disMoved[0], disMoved[1]);
 
 	// moves the debug map
-	debugView.move((float) disMoved[0], (float) disMoved[1]);
+	debugView.move(disMoved[0], disMoved[1]);
 }
 
 void App::render(sf::RenderWindow * window)
