@@ -12,8 +12,10 @@ Hud::Hud(App * app)
 	// saves app
 	this->app = app;
 
+	this->theme = Theme::create("assets/gui/theme.txt");
+
 	// creates toolbar
-	this->toolbar = MenuBar::create();
+	this->toolbar = theme->load("MenuBar");
 	this->toolbar->setSize(app->getW(), 20);
 
 	// adds file menu

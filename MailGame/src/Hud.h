@@ -16,6 +16,9 @@ public:
 	Hud();
 	Hud(App * app);
 
+	// the theme for HUD things
+	tgui::Theme::Ptr theme;
+
 	// the toolbar of stuff to do
 	tgui::MenuBar::Ptr toolbar;
 
