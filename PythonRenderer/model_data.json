@@ -113,5 +113,8 @@
 			"cream_black",
 			"cream_purple"
 		]
+	},
+	"Office": {
+		"path" : "office/office.png"
 	}
 }
