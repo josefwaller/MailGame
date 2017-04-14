@@ -1,6 +1,6 @@
 #include "Hud.h"
 #include "App.h"
-#include "House.h"
+#include "PostOffice.h"
 #include <iostream>
 
 using namespace tgui;
@@ -54,12 +54,19 @@ void Hud::update() {
 
 		if (Mouse::isButtonPressed(Mouse::Button::Left)) {
 
-			Vector2i pos = (Vector2i)app->getGameCoordsFromScreen(Mouse::getPosition(*app->getWindow()));
-			app->getGameMap()->addBuilding(new House(pos, Entity::Direction::Down));
-
-			cout << "Added house at " << pos.x << ", " << pos.y << endl;
-
 			isBuilding = false;
+
+			// gets the position
+			Vector2i pos = (Vector2i)app->getGameCoordsFromScreen(Mouse::getPosition(*app->getWindow()));
+			cout << "ASDF";
+			// checks it is valid
+			if (app->getGameMap()->isValidBuildingLocation(pos)) {
+
+
+				app->getGameMap()->addBuilding(new PostOffice(pos, Entity::Direction::Down));
+
+				cout << "Added house at " << pos.x << ", " << pos.y << endl;
+			}
 		}
 
 	}

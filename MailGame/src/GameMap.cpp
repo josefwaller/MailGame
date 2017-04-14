@@ -56,7 +56,8 @@ void GameMap::init(const int W, const int H, int mapSize)
 	}
 }
 
-void GameMap::updateBuildings(Time dt) {
+void GameMap::updateBuildings(Time dt) 
+{
 
 	for(Building * b : buildings) {
 
@@ -66,10 +67,36 @@ void GameMap::updateBuildings(Time dt) {
 
 }
 
-void GameMap::addBuilding(Building * b) {
+void GameMap::addBuilding(Building * b) 
+{
 
 	buildings.push_back(b);
 
+}
+
+bool GameMap::isValidBuildingLocation(Vector2i pos)
+{
+	// if the terrain is not empty, it is not valid
+	if (mapData[pos.x][pos.y] != terrain::Empty) return false;
+
+	cout << "ASaaaaaaaDF";
+
+	// checks it is connected to a road
+	for (int xOff = -1; xOff <= 1; xOff++) {
+		for (int yOff = -1; yOff <= 1; yOff++) {
+
+			// skips checking if values are zero or it is diagonal or both 
+			if (xOff != 0 && yOff != 0) {
+				continue;
+			}
+			cout << xOff << ", " << yOff << endl;
+			if (mapData[pos.x + xOff][pos.y + yOff] == terrain::Road) {
+				return true;
+			}
+		}
+	}
+
+	return false;
 }
 
 void GameMap::generateCity(int cityX, int cityY, int startingRoadL)

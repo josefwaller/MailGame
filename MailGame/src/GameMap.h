@@ -24,6 +24,8 @@ public:
 	// adds a building at a position specified
 	void addBuilding(Building * b);
 
+	bool isValidBuildingLocation(Vector2i pos);
+
 private:
 
 	// vector of buildings on the map
