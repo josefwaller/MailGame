@@ -290,7 +290,7 @@ void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
 								}
 
 								// places a house
-								buildings.push_back(new House(Vector2f((float)(x + xOff), (float)(y + yOff)), hDir));
+								buildings.push_back(new House(Vector2i((int)(x + xOff), (int)(y + yOff)), hDir));
 
 								// sets the terrain so that nothing else is build here
 								mapData[x + xOff][y + yOff] = terrain::House;

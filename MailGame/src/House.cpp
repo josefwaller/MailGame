@@ -2,7 +2,7 @@
 #include "ResourceManager.h"
 #include <ctime>
 
-House::House(Vector2f pos, Direction dir) : Building(pos, dir, "")
+House::House(Vector2i pos, Direction dir) : Building(pos, dir, "")
 {
 
 	// the different models of houses

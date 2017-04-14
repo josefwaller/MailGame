@@ -27,6 +27,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\GameMap.cpp" />
     <ClCompile Include="src\NodeMap.cpp" />
+    <ClCompile Include="src\PostOffice.cpp" />
     <ClCompile Include="src\ResourceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -37,6 +38,7 @@
     <ClInclude Include="src\House.h" />
     <ClInclude Include="src\Hud.h" />
     <ClInclude Include="src\NodeMap.h" />
+    <ClInclude Include="src\PostOffice.h" />
     <ClInclude Include="src\ResourceManager.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
