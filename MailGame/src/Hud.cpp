@@ -18,21 +18,30 @@ Hud::Hud(App * app)
 	this->toolbar = theme->load("MenuBar");
 	this->toolbar->setSize(app->getW(), 20);
 
+	// sets up menuStrings
+	menuStrings = map<string, string>();
+	menuStrings.insert({ {"file", "File"} });
+	menuStrings.insert({"file_load", "Load"});
+	menuStrings.insert({"file_save", "Save"});
+	menuStrings.insert({"file_exit", "Exit"});
+
+	menuStrings.insert({"build", "Build"});
+	menuStrings.insert({"build_office", "Office"});
+	menuStrings.insert({"build_mailbox", "mailbox"});
+
 	// adds file menu
-	this->toolbar->addMenu("File");
-	this->toolbar->addMenuItem("Load");
-	this->toolbar->addMenuItem("Save");
-	this->toolbar->addMenuItem("Exit");
+	this->toolbar->addMenu(menuStrings["file"]);
+	this->toolbar->addMenuItem(menuStrings["file_save"]);
+	this->toolbar->addMenuItem(menuStrings["file_load"]);
+	this->toolbar->addMenuItem(menuStrings["file_exit"]);
 
 	// adds build menu
-	this->toolbar->addMenu("Build");
-	this->toolbar->addMenuItem("Post Office");
-	this->toolbar->addMenuItem("Mailbox");
-	this->toolbar->addMenuItem("Dinosaur");
+	this->toolbar->addMenu(menuStrings["build"]);
+	this->toolbar->addMenuItem(menuStrings["build_office"]);
+	this->toolbar->addMenuItem(menuStrings["build_mailbox"]);
 
 	// creates button
 	this->app->getGui()->add(toolbar);
-
 
 }
 
@@ -44,22 +53,25 @@ void Hud::init()
 
 void Hud::onMenuSelect(vector<String> vals)
 {
-	if (vals[0] == "File") {
+	if (vals[0] == menuStrings["file"]) {
 
-		if (vals[1] == "Load") {
+		if (vals[1] == menuStrings["file_save"]) {
 
 		}
-		else if (vals[1] == "Save") {
+		else if (vals[1] == menuStrings["file_load"]) {
 
 		} 
-		else if (vals[1] == "Exit") {
+		else if (vals[1] == menuStrings["file_exit"]) {
 			this->app->getWindow()->close();
 		}
 	}
-	else if (vals[0] == "Build") {
+	else if (vals[0] == menuStrings["build"]) {
 	
-		if (vals[0] == "Office") {
+		if (vals[1] == menuStrings["build_office"]) {
 
+
+		}
+		else if (vals[1] == menuStrings["build_mailbox"]) {
 
 		}
 	}

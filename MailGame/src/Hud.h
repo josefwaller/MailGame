@@ -33,4 +33,10 @@ private:
 	// the app the HUD belongs to
 	App * app;
 
+	// A map of the strings used in the menu
+	// the key is what the string represents (File, build, etc)
+	// and should not change, while the value is the actual
+	// string drawn on the screen and can change
+	// Read from a json file
+	map<string, string> menuStrings;
 };
