@@ -1,6 +1,7 @@
 #include "Hud.h"
 #include "App.h"
 #include "PostOffice.h"
+#include "ResourceManager.h"
 #include <iostream>
 
 using namespace tgui;
@@ -106,5 +107,14 @@ void Hud::onMenuSelect(vector<String> vals)
 
 void Hud::render(RenderWindow * window)
 {
+
+	if (isBuilding) {
+		cout << "ASDF";
+		Sprite * s = ResourceManager::get()->loadSprite("assets/sprites/office/office.png");
+
+		
+		s->setPosition(window->mapPixelToCoords(Mouse::getPosition(*window)));
+		window->draw(*s);
+	}
 }
 
