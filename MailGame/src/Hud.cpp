@@ -64,7 +64,7 @@ void Hud::update() {
 			if (app->getGameMap()->isValidBuildingLocation(pos)) {
 
 
-				app->getGameMap()->addBuilding(new PostOffice(pos, Entity::Direction::Down));
+				app->getGameMap()->addBuilding(new PostOffice(app, pos, Entity::Direction::Down));
 
 				cout << "Added house at " << pos.x << ", " << pos.y << endl;
 			}

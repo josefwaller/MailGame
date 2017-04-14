@@ -12,7 +12,7 @@ class GameMap
 {
 public:
 	GameMap();
-	void init(const int W, const int H, int mapSize);
+	void init(App * app, const int W, const int H, int mapSize);
 	void destroy();
 
 	void updateBuildings(Time dt);
@@ -29,7 +29,10 @@ public:
 	// finds the connection that this position is adjacent to
 	int getNodeConnection(Vector2i pos);
 
+	NodeMap * getRoadMap();
+
 private:
+	App * app;
 
 	// vector of buildings on the map
 	vector<Building *> buildings;

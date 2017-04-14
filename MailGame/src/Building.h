@@ -9,7 +9,7 @@ using namespace sf;
 class Building: public Entity
 {
 public:
-	Building(Vector2i pos, Direction dir, string spritePath);
+	Building(App * app, Vector2i pos, Direction dir, string spritePath);
 	virtual ~Building() {};
 
 	virtual void update(Time dt) = 0;
@@ -17,4 +17,7 @@ public:
 
 protected:
 	Sprite * s;
+
+	// the index of the connection this building is on
+	int roadConnIndex;
 };

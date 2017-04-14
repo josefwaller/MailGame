@@ -9,7 +9,7 @@ using namespace sf;
 class House : public Building
 {
 public:
-	House(Vector2i pos, Direction dir);
+	House(App * app, Vector2i pos, Direction dir);
 	void update(Time dt);
 	
 	// House uses Building::render for rendering

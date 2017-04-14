@@ -47,7 +47,7 @@ void App::init()
 	}
 
 	// initializes the GameMap
-	m.init(200, 200, App::mapS);
+	m.init(this, 200, 200, App::mapS);
 }
 
 void App::update(sf::Time dt)

@@ -24,8 +24,10 @@ GameMap::GameMap()
 {
 }
 
-void GameMap::init(const int W, const int H, int mapSize)
+void GameMap::init(App * app, const int W, const int H, int mapSize)
 {
+
+	this->app = app;
 	srand((unsigned int)time(0));
 
 	// starts map with 100 by 100
@@ -370,7 +372,7 @@ void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
 								}
 
 								// places a house
-								buildings.push_back(new House(Vector2i((int)(x + xOff), (int)(y + yOff)), hDir));
+								buildings.push_back(new House(app, Vector2i((int)(x + xOff), (int)(y + yOff)), hDir));
 
 								// sets the terrain so that nothing else is build here
 								mapData[x + xOff][y + yOff] = terrain::House;
@@ -601,4 +603,8 @@ void GameMap::renderBuildings(RenderWindow * window, FloatRect clipRect)
 		}
 	}
 
+}
+
+NodeMap * GameMap::getRoadMap() {
+	return &roadMap;
 }

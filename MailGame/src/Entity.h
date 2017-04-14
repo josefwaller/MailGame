@@ -3,6 +3,9 @@
 
 using namespace sf;
 
+// forward declaration of app
+class App;
+
 class Entity
 {
 public:
@@ -19,7 +22,7 @@ public:
 		UpRight
 	};
 
-	Entity(Vector2f position, Entity::Direction dir);
+	Entity(App * app, Vector2f position, Entity::Direction dir);
 	virtual ~Entity() {};
 
 	// update must be initialized by the child class
@@ -31,6 +34,9 @@ public:
 	Vector2f getPosition();
 
 protected:
+	// the app this entity belongs to
+	App * app;
+
 	// the position of the entity
 	Vector2f position;
 

@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Entity.h"
+#include "App.h"
 
-Entity::Entity(Vector2f startingPos, Direction dir)
+Entity::Entity(App * app, Vector2f startingPos, Direction dir)
 {
 	position = startingPos;
 	direction = dir;
