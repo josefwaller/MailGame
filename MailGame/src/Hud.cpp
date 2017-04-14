@@ -109,7 +109,6 @@ void Hud::render(RenderWindow * window)
 {
 
 	if (isBuilding) {
-		cout << "ASDF";
 		Sprite * s = ResourceManager::get()->loadSprite("assets/sprites/office/office.png");
 
 		

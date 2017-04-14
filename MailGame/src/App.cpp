@@ -172,8 +172,8 @@ Vector2f App::getGameCoordsFromRenderCoords(Vector2f renderCoords) {
 	renderCoords.x -= mapS * App::getScale();
 
 	return Vector2f(
-		(renderCoords.y + 0.5 * renderCoords.x) / App::getScale(),
-		(renderCoords.y - 0.5 * renderCoords.x) / App::getScale()
+		(float) (renderCoords.y + 0.5 * renderCoords.x) / App::getScale(),
+		(float) (renderCoords.y - 0.5 * renderCoords.x) / App::getScale()
 	);
 }
 

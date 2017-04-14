@@ -99,6 +99,43 @@ bool GameMap::isValidBuildingLocation(Vector2i pos)
 	return false;
 }
 
+int GameMap::getNodeConnection(Vector2i pos) {
+
+	vector<pair<int, int>> conns = roadMap.getConnections();
+
+	for (size_t i = 0; i < conns.size(); i++) {
+
+		Vector2i nOne = roadMap.getNode(conns[i].first);
+		Vector2i nTwo = roadMap.getNode(conns[i].second);
+
+		if (nOne.x == nTwo.x) {
+			if (abs(pos.x - nOne.x)) {
+				return (int)i;
+			}
+			else if (nOne.x == pos.x) {
+
+				if (abs(pos.y - nOne.y) == 1 || abs(pos.y - nTwo.y) == 1) {
+					return (int)i;
+				}
+
+			}
+		} else if (nOne.y == nTwo.y) {
+			if (abs(nOne.y - pos.y)) {
+				return (int)i;
+			}
+			else if (nOne.y == pos.y) {
+				if (abs(nOne.x - pos.x) == 1 || abs(nTwo.x - pos.x) == 1) {
+					return (int)i;
+				}
+			}
+		} else {
+		
+			cout << "Something went wrong with the nodemap" << endl;
+		}
+	}
+	return -1;
+}
+
 void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
 {
 

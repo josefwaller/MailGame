@@ -26,6 +26,9 @@ public:
 
 	bool isValidBuildingLocation(Vector2i pos);
 
+	// finds the connection that this position is adjacent to
+	int getNodeConnection(Vector2i pos);
+
 private:
 
 	// vector of buildings on the map
