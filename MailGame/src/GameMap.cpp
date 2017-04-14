@@ -66,6 +66,12 @@ void GameMap::updateBuildings(Time dt) {
 
 }
 
+void GameMap::addBuilding(Building * b) {
+
+	buildings.push_back(b);
+
+}
+
 void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
 {
 

@@ -21,6 +21,9 @@ public:
 	void renderRoads(sf::RenderWindow * window, FloatRect clipRect);
 	void renderBuildings(sf::RenderWindow * window, FloatRect clipRect);
 
+	// adds a building at a position specified
+	void addBuilding(Building * b);
+
 private:
 
 	// vector of buildings on the map
