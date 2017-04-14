@@ -41,12 +41,20 @@ App::App(const int screenW, const int screenH, RenderWindow * gameWindow, tgui::
 void App::init()
 {
 
+	// checks I don't mess the coordinates up
+	if (App::getGameCoordsFromRenderCoords(App::getRenderCoords({ 20, 02 })) != Vector2f(20, 2)) {
+		cout << "Somehow, the coordinate functions have gotten out of sync!" << endl;
+	}
+
 	// initializes the GameMap
 	m.init(200, 200, App::mapS);
 }
 
 void App::update(sf::Time dt)
 {
+
+	// updates the hud
+	hud.update();
 
 	// updates the buildings
 	m.updateBuildings(dt);
@@ -149,14 +157,30 @@ sf::Vector2f App::getRenderCoords(Vector2f worldCoords)
 
 	// creates a new pair of X, Y coordinates
 	Vector2f rotatedCoords(
-		(float) ceil(worldCoords.x  - worldCoords.y),
-		(float) ceil(0.5 * (worldCoords.y + worldCoords.x)));
+		(float) (worldCoords.x  - worldCoords.y),
+		(float) (0.5 * (worldCoords.y + worldCoords.x)));
 
 	// moves the coordinates over to not have negative x values
 	rotatedCoords.x += mapS * App::getScale();
 
 	// returns the new values
 	return rotatedCoords;
+}
+
+Vector2f App::getGameCoordsFromRenderCoords(Vector2f renderCoords) {
+
+	renderCoords.x -= mapS * App::getScale();
+
+	return Vector2f(
+		(renderCoords.y + 0.5 * renderCoords.x) / App::getScale(),
+		(renderCoords.y - 0.5 * renderCoords.x) / App::getScale()
+	);
+}
+
+Vector2f App::getGameCoordsFromScreen(Vector2i windowCoords) {
+
+	window->setView(gameView);
+	return App::getGameCoordsFromRenderCoords(window->mapPixelToCoords(windowCoords));
 }
 
 // destroys everything on the heap
@@ -176,6 +200,9 @@ int App::getH() {
 }
 RenderWindow * App::getWindow() {
 	return this->window;
+}
+GameMap * App::getGameMap() {
+	return &this->m;
 }
 
 tgui::Gui * App::getGui() {

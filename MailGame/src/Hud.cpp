@@ -1,5 +1,6 @@
 #include "Hud.h"
 #include "App.h"
+#include "House.h"
 #include <iostream>
 
 using namespace tgui;
@@ -27,7 +28,7 @@ Hud::Hud(App * app)
 
 	menuStrings.insert({"build", "Build"});
 	menuStrings.insert({"build_office", "Office"});
-	menuStrings.insert({"build_mailbox", "mailbox"});
+	menuStrings.insert({"build_mailbox", "Mailbox"});
 
 	// adds file menu
 	this->toolbar->addMenu(menuStrings["file"]);
@@ -43,6 +44,25 @@ Hud::Hud(App * app)
 	// creates button
 	this->app->getGui()->add(toolbar);
 
+	this->isBuilding = false;
+
+}
+
+void Hud::update() {
+
+	if (isBuilding) {
+
+		if (Mouse::isButtonPressed(Mouse::Button::Left)) {
+
+			Vector2i pos = (Vector2i)app->getGameCoordsFromScreen(Mouse::getPosition(*app->getWindow()));
+			app->getGameMap()->addBuilding(new House(pos, Entity::Direction::Down));
+
+			cout << "Added house at " << pos.x << ", " << pos.y << endl;
+
+			isBuilding = false;
+		}
+
+	}
 }
 
 void Hud::init()
@@ -69,7 +89,7 @@ void Hud::onMenuSelect(vector<String> vals)
 	
 		if (vals[1] == menuStrings["build_office"]) {
 
-
+			isBuilding = true;
 		}
 		else if (vals[1] == menuStrings["build_mailbox"]) {
 

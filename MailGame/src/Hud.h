@@ -24,9 +24,10 @@ public:
 
 	void init();
 
-	void onMenuSelect(vector<String> vals);
-
+	void update();
 	void render(RenderWindow * window);
+
+	void onMenuSelect(vector<String> vals);
 
 private:
 
@@ -39,4 +40,7 @@ private:
 	// string drawn on the screen and can change
 	// Read from a json file
 	map<string, string> menuStrings;
+
+	// whether the player is building something
+	bool isBuilding;
 };

@@ -28,13 +28,34 @@ public:
 	// scales the entities to an appropriate size
 	static int getScale();
 
-	// converts game coords into window coords
-	static sf::Vector2f getRenderCoords(Vector2f worldCoords);
+	/*
+	 Coordinate Explination
+
+	 There are 3 coordinate systems in place
+
+	 1. The window coords, where each image is actually drawn on the window
+	 2. The world coords, where each object is in the actual game world
+	 3. The isometric coords, where each object is in the isometric view
+
+	 The isometric coords are the same as the world coord, but rotated ~40*
+	 and squished.
+	 */
+
+	// converts game coords into isometric coords
+	static Vector2f getRenderCoords(Vector2f worldCoords);
+
+	// converts isometric coords into game coords
+	// basically will undo getRenderCoords
+	static Vector2f getGameCoordsFromRenderCoords(Vector2f renderCoords);
+
+	// converts window coords into game coords
+	Vector2f getGameCoordsFromScreen(Vector2i windowCoords);
 
 	// get and set methods
 	int getW();
 	int getH();
 	RenderWindow * getWindow();
+	GameMap * getGameMap();
 
 	tgui::Gui * getGui();
 
