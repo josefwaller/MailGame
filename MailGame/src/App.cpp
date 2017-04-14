@@ -14,6 +14,8 @@ App::App(const int screenW, const int screenH, RenderWindow * gameWindow, tgui::
 
 	// creates HUD
 	hud = Hud(this);
+	hud.init();
+
 
 	// creates map
 	m = GameMap();
@@ -161,6 +163,9 @@ int App::getW() {
 
 int App::getH() {
 	return H;
+}
+RenderWindow * App::getWindow() {
+	return this->window;
 }
 
 tgui::Gui * App::getGui() {

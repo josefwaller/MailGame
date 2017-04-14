@@ -16,6 +16,13 @@ public:
 	Hud();
 	Hud(App * app);
 
+	// the toolbar of stuff to do
+	tgui::MenuBar::Ptr toolbar;
+
+	void init();
+
+	void onMenuSelect(vector<String> vals);
+
 	void render(RenderWindow * window);
 
 private:
@@ -23,6 +30,5 @@ private:
 	// the app the HUD belongs to
 	App * app;
 
-	// the toolbar of stuff to do
-	tgui::MenuBar::Ptr toolbar;
+	bool isCorrect;
 };

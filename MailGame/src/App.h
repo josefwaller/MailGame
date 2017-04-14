@@ -34,6 +34,7 @@ public:
 	// get and set methods
 	int getW();
 	int getH();
+	RenderWindow * getWindow();
 
 	tgui::Gui * getGui();
 

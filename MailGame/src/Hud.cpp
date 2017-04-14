@@ -7,13 +7,14 @@ using namespace tgui;
 Hud::Hud() {}
 Hud::Hud(App * app)
 {
+
+	this->isCorrect = false;
 	// saves app
 	this->app = app;
 
 	// creates toolbar
 	this->toolbar = MenuBar::create();
 	this->toolbar->setSize(app->getW(), 20);
-	this->toolbar->connect("MenuItemClicked", [&](vector<sf::String> s) { cout << (string)s[0] << " -> " << (string)s[1] << "\n";});
 
 	// adds file menu
 	this->toolbar->addMenu("File");
@@ -30,10 +31,23 @@ Hud::Hud(App * app)
 	// creates button
 	this->app->getGui()->add(toolbar);
 
+
+}
+
+void Hud::init()
+{
+
+	this->toolbar->connect("MenuItemClicked", &Hud::onMenuSelect, this);
+}
+
+void Hud::onMenuSelect(vector<String> vals)
+{
+	if (vals[0] == "File" && vals[1] == "Exit") {
+		this->app->getWindow()->close();
+	}
 }
 
 void Hud::render(RenderWindow * window)
 {
-
 }
 
