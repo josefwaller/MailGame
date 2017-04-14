@@ -33,5 +33,4 @@ private:
 	// the app the HUD belongs to
 	App * app;
 
-	bool isCorrect;
 };

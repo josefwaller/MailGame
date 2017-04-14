@@ -8,10 +8,10 @@ Hud::Hud() {}
 Hud::Hud(App * app)
 {
 
-	this->isCorrect = false;
 	// saves app
 	this->app = app;
 
+	// gets theme
 	this->theme = Theme::create("assets/gui/theme.txt");
 
 	// creates toolbar
@@ -44,8 +44,24 @@ void Hud::init()
 
 void Hud::onMenuSelect(vector<String> vals)
 {
-	if (vals[0] == "File" && vals[1] == "Exit") {
-		this->app->getWindow()->close();
+	if (vals[0] == "File") {
+
+		if (vals[1] == "Load") {
+
+		}
+		else if (vals[1] == "Save") {
+
+		} 
+		else if (vals[1] == "Exit") {
+			this->app->getWindow()->close();
+		}
+	}
+	else if (vals[0] == "Build") {
+	
+		if (vals[0] == "Office") {
+
+
+		}
 	}
 }
 
