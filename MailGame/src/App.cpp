@@ -48,6 +48,9 @@ void App::init()
 void App::update(sf::Time dt)
 {
 
+	// updates the buildings
+	m.updateBuildings(dt);
+
 	// gets the mouse position to move the screen left or right
 	sf::Vector2i mPos = sf::Mouse::getPosition(*window);
 

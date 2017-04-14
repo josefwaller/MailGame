@@ -56,6 +56,16 @@ void GameMap::init(const int W, const int H, int mapSize)
 	}
 }
 
+void GameMap::updateBuildings(Time dt) {
+
+	for(Building * b : buildings) {
+
+		b->update(dt);
+
+	}
+
+}
+
 void GameMap::generateCity(int cityX, int cityY, int startingRoadL)
 {
 

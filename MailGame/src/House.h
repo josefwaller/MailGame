@@ -11,7 +11,8 @@ class House : public Building
 public:
 	House(Vector2i pos, Direction dir);
 	void update(Time dt);
-	//void render(RenderWindow * window);
+	
+	// House uses Building::render for rendering
 
 private:
 	// variables used for timing letter generation
